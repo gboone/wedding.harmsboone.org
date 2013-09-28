@@ -1,0 +1,203 @@
+/* Large desktop */
+@media (min-width: 980px) {  
+	#content.waters {
+		background-image: url("../img/waters.jpg");
+	}
+	#content.wisc {
+		background-image: url("../img/wiscT.jpg");
+	/*	background-color: #ccc; */
+	}
+	
+	#content.han {
+		background-image: url("../img/hanguk.jpg");
+	}
+	
+	#content.stock {
+		background-image: url("../img/stock.jpg");
+		background-color: #83ccd8;
+		background-position: center top, center bottom;
+	}
+	
+	#content.dist {
+		background-image: url("../img/district.jpg")
+	}
+	
+	#content.white {
+		background-color: #fafafa;
+	}
+	#content.hung {
+		background-image: url("../img/kapos.jpg");
+	}
+	
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+	
+	#content.waters {
+		background-image: url("../img/waters.d.jpg"); /* width 980px */
+	}
+	#content.wisc {
+		background-image: url("../img/wiscT.d.jpg");
+	/*	background-color: #ccc; */
+	}
+	
+	#content.han {
+		background-image: url("../img/hanguk.d.jpg");
+	}
+
+	#content.stock {
+		background-image: url("../img/stock.d.jpg");
+		background-color: #83ccd8;
+		background-position: center top, center bottom;
+	}
+	
+	#content.dist {
+		background-image: url("../img/district.d.jpg")
+	}
+	#content.hung {
+		background-image: url("../img/kapos.d.jpg");
+	}
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+	#content.waters {
+	background-image: url("../img/waters.t.jpg"); /* width: 768 */
+	}
+	#content.wisc {
+		background-image: url("../img/wiscT.t.jpg");
+	/*	background-color: #ccc; */
+	}
+	
+	#content.han {
+		background-image: url("../img/hanguk.t.jpg");
+	}
+
+	
+	#content.stock {
+		background-image: url("../img/stock.t.jpg");
+		background-color: #83ccd8;
+		background-position: center top, center bottom;
+	}
+	
+	#content.dist {
+		background-image: url("../img/district.t.jpg")
+	}
+	#content.hung {
+		background-image: url("../img/kapos.t.jpg");
+	}
+	
+	#matt-nancy {
+		background-image: url("../img/Swisc.jpg");
+	}
+	
+	#joan-john {
+		background-image: url("../img/Sminn.jpg");
+	}
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	#content.waters {
+	background-image: url("../img/waters.p.jpg"); /* width: 481px */
+	}
+	#content.wisc {
+		background-image: url("../img/wiscT.p.jpg");
+	/*	background-color: #ccc; */
+	}
+	
+	#content.han {
+		background-image: url("../img/hanguk.p.jpg");
+	}
+	
+	#content.stock {
+		background-image: url("../img/stock.p.jpg");
+		background-color: #83ccd8;
+		background-position: center top, center bottom;
+	}
+	
+	#content.dist {
+		background-image: url("../img/district.p.jpg")
+	}
+	#content.hung {
+		background-image: url("../img/kapos.p.jpg");
+	}
+	
+}
+
+body {
+	margin: 0px auto;
+	max-width: 1200px;
+	background-color: #3b3b3b;
+}
+
+body#rsvp {
+	background-color: #fafafa;
+}
+
+header {
+	background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6, p, address {
+	padding: 0 10px;
+}
+
+#content {
+		background-repeat: no-repeat;
+}
+
+#content > article > .img {
+	width: 60%;
+	margin-right: 2em;
+}
+
+#content.stock > article > div {
+	margin-bottom: 20px;
+}
+
+#content.stock > article > div > img {
+	width: 30%;
+	margin-left: 2em;
+}
+
+footer , #content > .nav{
+	background-color: rgba(242,242,242,0.75);	
+}
+
+article#body-text, article#party, div#sidebar {
+	background-color: rgba(242,242,242,0.75);
+}
+
+#directions {
+	background-image: url("../img/wiscT.jpg");
+	background-color: #686c5e;
+	background-position: center top, center bottom;
+}
+
+#main-nav .pull-left a {
+	margin: 1em 0em 0;
+	padding: 1em 5em 0 3em;
+	height: 3em;
+}
+
+#main-nav .pull-left:hover ul {
+	display: block;
+	position: absolute;
+	background-color: #f3f3f3;
+	z-index: 999;
+}
+
+#top-nav ul li, {
+	list-style: none;
+	display: inline-block;
+
+}
+.open .dropdown-menu {
+	position: static;
+	top: 20px;
+	left: -20%;
+}
+
