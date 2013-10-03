@@ -1,0 +1,248 @@
+[
+{
+    "pk": 1, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "permission", 
+        "name": "permission", 
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 2, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "group", 
+        "name": "group", 
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 3, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "user", 
+        "name": "user", 
+        "app_label": "auth"
+    }
+},
+{
+    "pk": 4, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "contenttype", 
+        "name": "content type", 
+        "app_label": "contenttypes"
+    }
+},
+{
+    "pk": 5, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "session", 
+        "name": "session", 
+        "app_label": "sessions"
+    }
+},
+{
+    "pk": 6, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "site", 
+        "name": "site", 
+        "app_label": "sites"
+    }
+},
+{
+    "pk": 7, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "logentry", 
+        "name": "log entry", 
+        "app_label": "admin"
+    }
+},
+{
+    "pk": 8, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "post", 
+        "name": "post", 
+        "app_label": "mysite"
+    }
+},
+{
+    "pk": 9, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "guest", 
+        "name": "guest", 
+        "app_label": "rsvp"
+    }
+},
+{
+    "pk": 10, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "table", 
+        "name": "table", 
+        "app_label": "rsvp"
+    }
+},
+{
+    "pk": 12, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "migrationhistory", 
+        "name": "migration history", 
+        "app_label": "south"
+    }
+},
+{
+    "pk": 14, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "hotel", 
+        "name": "hotel", 
+        "app_label": "rsvp"
+    }
+},
+{
+    "pk": 15, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "room", 
+        "name": "room", 
+        "app_label": "rsvp"
+    }
+},
+{
+    "pk": 16, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "location", 
+        "name": "location", 
+        "app_label": "rsvp"
+    }
+},
+{
+    "pk": 17, 
+    "model": "contenttypes.contenttype", 
+    "fields": {
+        "model": "event", 
+        "name": "event", 
+        "app_label": "rsvp"
+    }
+},
+{
+    "pk": "92rut78zibpdjlxjwus1a74vcvs2f97m", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2013-09-29T18:20:01.227Z", 
+        "session_data": "OTZjMWY3MjUyZmFhOWNiOTIxNTc0MTZhMDQ0ZGNkNDRmOTdiM2EzYTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+},
+{
+    "pk": "m878qhkzshoqz8hvs80fblebkcxiyu07", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2013-10-16T22:45:55.089Z", 
+        "session_data": "OTZjMWY3MjUyZmFhOWNiOTIxNTc0MTZhMDQ0ZGNkNDRmOTdiM2EzYTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+},
+{
+    "pk": "r97ac5pea3lgmslqv4rkz71dsxgblznk", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2013-10-04T23:47:16.886Z", 
+        "session_data": "OTZjMWY3MjUyZmFhOWNiOTIxNTc0MTZhMDQ0ZGNkNDRmOTdiM2EzYTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+},
+{
+    "pk": "sn38ns0vf4jane83lmt0jzu1jquah2to", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2013-10-02T11:21:09.573Z", 
+        "session_data": "ZWU4NTcxNTUyMmI3NTg4NTM1YzdhM2ZiYTc5NmE0MDE0ZDJjM2UzYTp7InRlc3Rjb29raWUiOiJ3b3JrZWQifQ=="
+    }
+},
+{
+    "pk": 1, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "Harms Boone Wedding", 
+        "name": "wedding.harmsboone.org"
+    }
+},
+{
+    "pk": 1, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-09-24T11:35:34.954Z", 
+        "app_name": "rsvp", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 2, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-09-25T00:35:21.480Z", 
+        "app_name": "rsvp", 
+        "migration": "0002_auto__del_field_guest_prefix"
+    }
+},
+{
+    "pk": 3, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-09-25T00:40:30.088Z", 
+        "app_name": "rsvp", 
+        "migration": "0003_auto__add_field_guest_prefix"
+    }
+},
+{
+    "pk": 4, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-09-25T11:53:12.221Z", 
+        "app_name": "mysite", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 5, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-09-25T11:55:39.618Z", 
+        "app_name": "mysite", 
+        "migration": "0002_auto__add_field_post_content_id"
+    }
+},
+{
+    "pk": 6, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-10-02T23:59:24.148Z", 
+        "app_name": "rsvp", 
+        "migration": "0004_auto__add_locations__add_hotel__add_room__del_field_events_event_name_"
+    }
+},
+{
+    "pk": 7, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-10-03T00:12:31.528Z", 
+        "app_name": "rsvp", 
+        "migration": "0005_p"
+    }
+},
+{
+    "pk": 8, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-10-03T00:38:39.179Z", 
+        "app_name": "posts", 
+        "migration": "0001_initial"
+    }
+}
