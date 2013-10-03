@@ -11,6 +11,8 @@ class Guest(models.Model):		# we create a model for a single guest
 	city = models.CharField(max_length=255)
 	state = models.CharField(max_length=2)
 	zip_code = models.IntegerField(max_length=5)
+	primary = models.BooleanField()
+	relation = models.ForeignKey('self', null=True)
 
 	class Meta:
 		ordering = ['-last_name', '-first_name']
@@ -18,12 +20,34 @@ class Guest(models.Model):		# we create a model for a single guest
 	def __unicode__(self):
 		return u'%s, %s' % (self.last_name, self.first_name)
 
-class FamilyMember():
-	family = models.ForeignKey(Guest)
+class Abstract(models.Model):
+	name = models.CharField(max_length=255)
+	guests = models.ManyToManyField(Guest, null=True)
 
-class Table(models.Model):
-	guest_count = models.IntegerField()
-	theme = models.CharField(max_length=45)
+	class Meta:
+		abstract = True
 
-class Events(models.Model):
-	event_name = models.CharField(max_length=255)
+	def __unicode__(self):
+		return u'%s' % self.name 
+
+class Location(models.Model):
+	name = models.CharField(max_length=255)
+	distance = models.IntegerField()
+
+	def __unicode__(self):
+		return u'%s' % self.name
+
+class Table(Abstract):
+	pass
+
+class Event(Abstract):
+	location = models.ForeignKey(Location, null=True)
+
+class Hotel(Abstract):
+	pass
+
+class Room(Abstract):
+	hotel = models.ForeignKey(Hotel)
+	max_occupancy = models.IntegerField()
+
+

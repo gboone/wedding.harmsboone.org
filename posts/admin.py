@@ -1,6 +1,5 @@
 from django.contrib import admin
 from mysite.models import Post
-from rsvp.models import Guest
 
 class PostAdmin(admin.ModelAdmin):
 	#fields display on change list
@@ -17,11 +16,3 @@ class PostAdmin(admin.ModelAdmin):
 	prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(Post)
-
-class GuestAdmin(admin.ModelAdmin):
-	list_display = ['last_name', 'first_name']
-	list_filter = ['last_name', 'first_name']
-	search_fields = ['last_name', 'first_name', ]
-	save_on_top = True
-
-admin.site.register(Guest)
