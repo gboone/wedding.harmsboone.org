@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from mysite.models import Post
+from posts.models import Post
 
 def index(request):
 	# get the blog posts that are published

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mysite.models import Post
+from posts.models import Post
 
 class PostAdmin(admin.ModelAdmin):
 	#fields display on change list
