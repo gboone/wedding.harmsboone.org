@@ -78,14 +78,14 @@ if not prod:
     STATIC_URL = '/static/'
     ADMIN_MEDIA_PREFIX = '/static/admin/'    
     MEDIA_URL = '/'
-    MEDIA_ROOT = './media'
+    MEDIA_ROOT = 'core/static/media'
 
 if prod:
     AWS_ACCESS_KEY_ID =  os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     ADMIN_MEDIA_PREFIX = '%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 # Absolute path to the directory static files should be collected to.
@@ -99,7 +99,8 @@ if prod:
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "core/static/",
+    "core/static/img",
+    "core/static/css",
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
