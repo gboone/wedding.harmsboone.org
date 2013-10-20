@@ -12,3 +12,12 @@ class SongRequest(forms.Form):
 	artist = forms.CharField()
 	song = forms.CharField()
 
+class GuestAuth(forms.Form):
+	first_name = forms.CharField(max_length=100)
+	last_name = forms.CharField(max_length=100)
+	zip_code = forms.IntegerField()
+	attending = forms.BooleanField(required=False)
+
+# class GuestNameVerify(forms.Form):
+# 	for relation as guest_name
+# 		name = forms.CharField(max_length=100)

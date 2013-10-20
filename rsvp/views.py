@@ -5,7 +5,8 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 from django.conf import settings
 from django.forms.formsets import formset_factory
 
-from rsvp.forms import ContactForm, SongRequest
+from rsvp.models import Guest
+from rsvp.forms import ContactForm, SongRequest, GuestAuth
 
 def ContactView(request):
 	if request.method == 'POST':
@@ -38,7 +39,37 @@ def RequestView(request):
 			pass
 	else:
 		formset = RequestFormSet()
-	return render_to_response('request.html', { 'formset' : formset })
+	return render(request, 'request.html', { 'formset' : formset })
+
+def GuestAuthView(request):
+	if request.method == 'POST':
+		form = GuestAuth(request.POST)
+		if form.is_valid():
+			first = form.cleaned_data['first_name']
+			last = form.cleaned_data['last_name']
+			zip_code = form.cleaned_data['zip_code']
+			attending = form['attending']
+			key = first + last + str(zip_code)
+			c = Guest.objects.get(first_name=first, last_name=last, zip_code=zip_code) 
+			c_first = c.first_name
+			c_last = c.last_name
+			c_zip = str(c.zip_code)
+			check = c_first + c_last + c_zip
+			import hashlib
+			key = hashlib.sha224(key).hexdigest()
+			check = hashlib.sha224(check).hexdigest()
+			if key == check:
+				return HttpResponseRedirect('/coming?first_name=' + first + '&last_name=' + last)
+	else:
+		form = GuestAuth()
+
+	return render(request, 'auth.html', {
+		'form' : form,
+	})
+
+# def GuestNameVerify(request):
+# 	if request.method == 'GET':
+# 		passed = 
 
 # def rsvp(request):
 # 	if request.method == 'POST':

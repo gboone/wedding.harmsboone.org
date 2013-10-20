@@ -8,6 +8,7 @@ urlpatterns = patterns('rsvp.views',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+	url(r'', 'GuestAuthView', name= 'GuestAuthView'),
 	url(r'contact/$', 'ContactView', name='ContactView'),
 	url(r'request/$', 'RequestView', name='RequestView'),
     # url(r'^(?P<string>\w+)/$', 'page', name='page'),
