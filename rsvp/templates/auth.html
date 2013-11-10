@@ -1,8 +1,17 @@
-<form action="" method="post">{% csrf_token %}
+{% extends "base.html" %}
+{% load i18n %}
 
-	<table>
-		{{ form }}
-	</table>
-	<input type="submit" value="Submit" />
+{% block head %}
+{% endblock %}
 
-</form>
+{% block content %}
+		<section id="content" class="row-fluid wisc">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<article class="span7 pull-left" id="body-text">
+			<form action="yes/" method="post">{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn" type="submit">Submit</button>
+			</form>
+		</article>
+
+{% endblock %}

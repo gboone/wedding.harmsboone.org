@@ -1,8 +1,31 @@
-<form action="" method="post">{% csrf_token %}
+{% extends "base.html" %}
+{% load i18n %}
 
-	<table>
-		{{ formset }}
-	</table>
-	<input type="submit" value="Submit" />
+{% block head %}
+{% endblock %}
 
-</form>
+{% block content %}
+<script type="text/javascript">
+</script>
+<section id="content" class="row-fluid wisc">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<article class="span7 pull-left" id="body-text">
+			<h3>Welcome, {{ first_name }} {{ last_name }}!</h3>
+			<form action="" method="post">{% csrf_token %}
+				<div id="yepnope">
+					<p>So, are you coming or not?</p>
+					{{ yepnope }}
+				</div>
+				<div id="guests">
+					<p>Are these your guests?</p>
+					{% for form in formset %}
+						{{ form.as_p }}
+					{% endfor %}
+				</div>
+				<button class="btn" type="submit">Submit</button>
+
+			</form>
+		</article>
+
+{% endblock %}
+

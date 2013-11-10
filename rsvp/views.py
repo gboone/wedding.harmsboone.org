@@ -4,9 +4,11 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.conf import settings
 from django.forms.formsets import formset_factory
+from django.forms.models import modelformset_factory, BaseModelFormSet
+from django.contrib.formtools.wizard.views import CookieWizardView
 
 from rsvp.models import Guest
-from rsvp.forms import ContactForm, SongRequest, GuestAuth
+from rsvp.forms import ContactForm, SongRequest, GuestAuth, GuestVerify, GuestAttending, GuestNamesVerify
 
 def ContactView(request):
 	if request.method == 'POST':
@@ -31,6 +33,12 @@ def ContactView(request):
 		'form' : form,
 	})
 
+def show_message_from_condition(wizard):
+	cleaned_data = wizard.get_cleaned_data_for_step('0') or {}
+class RsvpWizard(CookieWizardView):
+	def done(self, form_list, **kwargs):
+		return HttpResponseRedirect('/complete')
+
 def RequestView(request):
 	RequestFormSet = formset_factory(SongRequest, max_num=5)
 	if request.method == 'POST':
@@ -48,7 +56,6 @@ def GuestAuthView(request):
 			first = form.cleaned_data['first_name']
 			last = form.cleaned_data['last_name']
 			zip_code = form.cleaned_data['zip_code']
-			attending = form['attending']
 			key = first + last + str(zip_code)
 			c = Guest.objects.get(first_name=first, last_name=last, zip_code=zip_code) 
 			c_first = c.first_name
@@ -59,7 +66,7 @@ def GuestAuthView(request):
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
 			if key == check:
-				return HttpResponseRedirect('/coming?first_name=' + first + '&last_name=' + last)
+				return HttpResponseRedirect('yes/')
 	else:
 		form = GuestAuth()
 
@@ -67,10 +74,44 @@ def GuestAuthView(request):
 		'form' : form,
 	})
 
-# def GuestNameVerify(request):
-# 	if request.method == 'GET':
-# 		passed = 
+def GuestVerifyView(request):
+	if request.method == 'POST':
+		get_vals = request.POST
+		first = get_vals['first_name']
+		last = get_vals['last_name']
+		zcode = get_vals['zip_code']
+		guest = Guest.objects.get(first_name=first, last_name=last, zip_code=zcode)
+		yepnope = Guest.objects.filter(first_name=first, last_name=last, zip_code=zcode).all
+		GuestNameFormset = modelformset_factory(Guest, max_num=yepnope.max_guests, fields=['first_name', 'last_name'])
+		if yepnope == True:
+			pass
+		else:
+			yepnope = GuestAttending(yepnope)
+		if guest.primary == True: # if this is a primary guest (the one on the invite)
+			query = Guest.objects.filter(relation=yepnope.pk)
+			max_guests = guest.max_guests
+			if max_guests > 1:
+				formset = GuestNamesVerify(queryset=query)
+				# formset = GuestNameFormset(queryset=query)
+			else:
+				formset = GuestNameFormset(extra=1)				
+	else:
+		formset = GuestNameFormset()
 
+	return render(request, 'request.html', {
+		'formset' : formset,
+		'yepnope' : yepnope,
+		'first_name' : first,
+		'last_name' : last,
+	})
+	# elif request.method == 'POST':
+	# 	pass
+	# else:
+	# 	form = GuestAuth()
+
+	# return render(request, 'request.html', {
+	# 	'formset' : formset,
+	# })
 # def rsvp(request):
 # 	if request.method == 'POST':
 # 		form = 

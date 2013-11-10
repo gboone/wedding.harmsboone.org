@@ -4,8 +4,9 @@ from django.forms import ModelForm
 class Guest(models.Model):		# we create a model for a single guest
 	first_name = models.CharField(max_length=45)
 	last_name = models.CharField(max_length=45)
+	display_as = models.CharField(max_length= 91, null=True)
 	prefix = models.CharField(max_length=4, null=True, blank=True)
-	max_guests = models.IntegerField()
+	max_guests = models.IntegerField(default=0, null=True, blank=True)
 	attending = models.BooleanField()
 	primary_email = models.EmailField(max_length=254)
 	street_addr = models.CharField(max_length=255)
@@ -20,16 +21,6 @@ class Guest(models.Model):		# we create a model for a single guest
 
 	def __unicode__(self):
 		return u'%s, %s' % (self.last_name, self.first_name)
-
-class GuestAuth(ModelForm):
-	class Meta:
-		model = Guest
-		fields = ['first_name', 'last_name', 'zip_code', 'attending']
-
-class GuestNamesVerify(ModelForm):
-	class Meta:
-		model = Guest
-		fields = ['first_name', 'last_name', 'primary', 'relation']
 
 class Abstract(models.Model):
 	name = models.CharField(max_length=255)
