@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+</script>
+<section id="content" class="row-fluid wisc">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<article class="span7 pull-left" id="body-text">
+
+			<h3>Welcome, {{ first_name }} {{ last_name }}!</h3>
+			<form action="" method="post">{% csrf_token %}
+			<p>So, are you coming or not?</p>
+				<div id="init">
+					{{ yepnope.as_p }}
+				</div>
+				<div id="part_{{ form.instance.pk }}">
+					{{ form.as_p }}
+				</div>
+				<button class="btn" type="submit">Submit</button>
+
+			</form>
+		</article>
+
+{% endblock %}
+

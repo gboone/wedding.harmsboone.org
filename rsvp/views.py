@@ -66,7 +66,7 @@ def GuestAuthView(request):
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
 			if key == check:
-				return HttpResponseRedirect('yes/')
+				return HttpResponseRedirect('yes/?first_name=' + first + '&last_name=' + last + '&zip_code=' + zip_code)
 	else:
 		form = GuestAuth()
 
@@ -75,32 +75,29 @@ def GuestAuthView(request):
 	})
 
 def GuestVerifyView(request):
-	if request.method == 'POST':
-		get_vals = request.POST
+	if request.method == 'GET':
+		get_vals = request.GET
 		first = get_vals['first_name']
 		last = get_vals['last_name']
 		zcode = get_vals['zip_code']
 		guest = Guest.objects.get(first_name=first, last_name=last, zip_code=zcode)
-		yepnope = Guest.objects.filter(first_name=first, last_name=last, zip_code=zcode).all
-		GuestNameFormset = modelformset_factory(Guest, max_num=yepnope.max_guests, fields=['first_name', 'last_name'])
+		yepnope = Guest.objects.filter(first_name=first, last_name=last, zip_code=zcode).all()
+		# import pdb; pdb.set_trace()
+		GuestNameFormset = modelformset_factory(Guest, fields=['first_name', 'last_name'])
 		if yepnope == True:
 			pass
 		else:
-			yepnope = GuestAttending(yepnope)
+			yepnope = GuestAttending(guest)
 		if guest.primary == True: # if this is a primary guest (the one on the invite)
-			query = Guest.objects.filter(relation=yepnope.pk)
+			query = Guest.objects.filter(relation=guest.pk)
 			max_guests = guest.max_guests
-			if max_guests > 1:
-				formset = GuestNamesVerify(queryset=query)
-				# formset = GuestNameFormset(queryset=query)
-			else:
-				formset = GuestNameFormset(extra=1)				
+			formset = GuestNameFormset(queryset=query)
 	else:
 		formset = GuestNameFormset()
 
 	return render(request, 'request.html', {
 		'formset' : formset,
-		'yepnope' : yepnope,
+		'yepnope' : guest,
 		'first_name' : first,
 		'last_name' : last,
 	})

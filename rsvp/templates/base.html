@@ -1,0 +1,116 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" >
+<link rel="stylesheet" href="css/ink-ie7.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" >
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html>
+<!-- Thanks for visiting, feel free to critique my html, but don't let it distract you from what you came for, learning about our wedding. -->
+<!--<![endif]-->
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+		<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+		<link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen" title="custom-styles" charset="utf-8" />
+		<!--[if lt IE 9]>
+		<script src="/js/html5.js" type="text/javascript"></script>
+		<![endif]-->
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	</head>
+	<style type="text/css">
+	div#main-nav ul ul {
+		display: none;
+	}
+
+	div#main-nav li:hover > ul {
+		display: block;
+	}
+
+
+	</style>
+	<body onload="initialize()">
+		<div class="container-fluid">
+
+			<header class="row-fluid">
+			<div class="span1"></div>
+			<div class="span12">
+				<h1 class="hidden-phone">Danielle Harms | Greg Boone</h1>
+				<h1 class="visible-phone">Danielle & Greg: North Country Wedding</h1>
+				<h2 class="hidden-phone">A North Country Wedding.</h2>
+			</div>
+			<div id="main-nav" class="hidden-phone span12">
+				<ul class="nav">
+					<li class="pull-left"><a href="/">Home</a></li>
+					<li class="pull-left"><a href="/location/">Destination</a>
+						<ul class="nav pull-left">
+							<li class=""><a href="/directions/">Getting there</a></li>
+							<li class=""><a href="/lodging/">Where to stay</a></li>
+							<li class=""><a href="/activities/">What to do</a></li>
+						</ul>
+					</li>
+					<li class="pull-left"><a href="/the_couple/">Cast</a></li>
+					<li class="pull-left"><a href="/the_party/">Crew</a></li>
+					<li class="pull-left"><a href="/rsvp/">RSVP</a></li>
+				</ul>
+			</div> <!-- main-nav -->
+			</header>
+
+					{% block content %}
+					{% endblock %}
+
+				<div id="sidebar" class="span3 pull-left">
+				<h4>Handy links:</h4>
+				<ul class="nav nav-list">
+					<li><a href="/">Home</a></li>
+					<li><a href="/the_couple/">About The Couple</a></li>
+					<li><a href="/the_couple/">About Danielle</a></li>
+					<li><a href="/the_couple/">About Greg</a></li>
+					<li><a href="/the_party/">The Wedding Party</a></li>
+					<li><a href="/location/">What the heck is a Mantowish!?</a></li>
+					<li><a href="http://www.chippewaretreat.com/">Chippewa Retreat</a></li>
+					<li><a href="/directions/">Directions</a></li>
+					<li><a href="/lodging/">Where to Stay</a></li>
+					<li><a href="/activities/">What to do</a></li>
+					<li><a href="http://harmsboone.org/">Danielle and Greg's travels.</a></li>
+				</ul>
+
+				</div>
+				<div class="span1 pull-right">&nbsp;</div>
+			</section>
+			
+			<footer class="row-fluid pull-left hidden-phone">
+			<ul class="span4 nav nav-list">
+				<li><a href="http://wedding.harmsboone.org">A North Country Wedding</a></li>
+				<li><a href="http://wedding.harmsboone.org">Danielle Harms and Greg Boone</a></li>
+				<li><a href="http://www.youtube.com/watch?v=D2VsUCYw_JU">Some humor</a></li>
+				<li><a href="http://flickr.com/photos/daniellemharms">Flickr</a></li>
+			</ul>
+			<ul class="span4 nav nav-list">
+				<li><a href="/location/">Location</a></li>
+				<li><a href="/directions/">Getting there</a></li>
+				<li><a href="/lodging/">Where to stay</a></li>
+				<li><a href="/activities/">What to do</a></li>
+			</ul>
+			<ul class="span4 nav nav-list">
+				<li><a href="/the_couple/">Cast</a></li>
+				<li><a href="/the_party/">Crew</a></li>
+				<li><a href="http://harmsboone.org">Learn more.</a></li>
+				<li><a href="#"> 2013 HarmsBoone.org</a></li>
+			</ul>
+			</footer>
+
+		</div>
+
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		</script>
+
+	</body>
+</html>

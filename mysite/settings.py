@@ -77,8 +77,8 @@ if not prod:
     STATIC_ROOT = './collected_static/'
     STATIC_URL = '/static/'
     ADMIN_MEDIA_PREFIX = '/static/admin/'    
-    MEDIA_URL = '/'
-    MEDIA_ROOT = 'core/static/media'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = './media'
 
 if prod:
     AWS_ACCESS_KEY_ID =  os.environ['AWS_ACCESS_KEY_ID']
@@ -99,8 +99,7 @@ if prod:
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "core/static/img",
-    "core/static/css",
+    "core/static",
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -111,7 +110,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # s3 = S3Client(os.environ['S3_KEY'], os.environ['S3_SECRET'])
@@ -154,12 +153,13 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    # 'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'django.contrib.formtools',
     'storages',
     'south',
     'posts',
@@ -169,6 +169,10 @@ INSTALLED_APPS = (
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+SESSION_COOKIE_HTTPONLY = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
