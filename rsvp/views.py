@@ -7,8 +7,8 @@ from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory, BaseModelFormSet
 from django.contrib.formtools.wizard.views import CookieWizardView
 
-from rsvp.models import Guest
-from rsvp.forms import ContactForm, SongRequest, GuestAuth, GuestVerify, GuestAttending, GuestNamesVerify
+from rsvp.models import Guest, Hotel, Event, Room
+from rsvp.forms import ContactForm, SongRequest, GuestAuth, GuestVerify, GuestAttending, GuestNamesVerify, HotelChooser, RoomChooser, EventChooser
 
 def ContactView(request):
 	if request.method == 'POST':
@@ -66,7 +66,7 @@ def GuestAuthView(request):
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
 			if key == check:
-				return HttpResponseRedirect('yes/?first_name=' + first + '&last_name=' + last + '&zip_code=' + zip_code)
+				return HttpResponseRedirect('yes/?first_name=%s&last_name=%s&zip_code=%s' % ( first, last, zip_code, ))
 	else:
 		form = GuestAuth()
 
@@ -81,25 +81,52 @@ def GuestVerifyView(request):
 		last = get_vals['last_name']
 		zcode = get_vals['zip_code']
 		guest = Guest.objects.get(first_name=first, last_name=last, zip_code=zcode)
-		yepnope = Guest.objects.filter(first_name=first, last_name=last, zip_code=zcode).all()
-		# import pdb; pdb.set_trace()
-		GuestNameFormset = modelformset_factory(Guest, fields=['first_name', 'last_name'])
-		if yepnope == True:
-			pass
+		yepnope = [guest]
+		GuestNameFormset = modelformset_factory(Guest, fields=['first_name', 'last_name'], extra=0, max_num=guest.max_guests)
+		EventFormset = modelformset_factory(Event, fields=['name'])
+		hotels = Hotel.objects
+		if guest.attending == True:
+			greeting = u'Looks like you are already coming!'
+			yepnope = u'Thanks for RSVPing, see you in August!'
 		else:
-			yepnope = GuestAttending(guest)
-		if guest.primary == True: # if this is a primary guest (the one on the invite)
-			query = Guest.objects.filter(relation=guest.pk)
-			max_guests = guest.max_guests
-			formset = GuestNameFormset(queryset=query)
+			greeting = 'Will you be able to join us for the wedding on August 16?'
+			yepnope = GuestAttending(yepnope)
+			if guest.primary == True: # if this is a primary guest (the one on the invite)
+				query = Guest.objects.filter(relation=guest.pk)
+				max_guests = guest.max_guests
+				formset = GuestNameFormset(queryset=query)
+			else:
+				relative = Guest.objects.get(relation=guest.relation)
+				query = Guest.objects.filter(relation=relative)
+				max_guests = relative.max_guests
+				formset = GuestNameFormset(queryset=query)
+			hotel_form = HotelChooser()
+			room_form = RoomChooser()
+			eventform = EventChooser()
+
+			# hotel_form = Hotel.objects.get(guests=guest)
+
+			# hotel_form = HotelChooser()
+	# elif request.method == 'POST'
+	# 	pass
+	# 	forms = ( yepnope, formset )
+	# 	for form in forms:
+	# 		if is_valid(form):
+	# 			# Anything we're doing before we save.
+	# 		else:
+	# 			break
 	else:
 		formset = GuestNameFormset()
 
 	return render(request, 'request.html', {
+		'greeting' : greeting,
 		'formset' : formset,
-		'yepnope' : guest,
+		'yepnope' : yepnope,
 		'first_name' : first,
 		'last_name' : last,
+		'hotel_form' : hotel_form,
+		'room_form' : room_form,
+		'event_form' : eventform,
 	})
 	# elif request.method == 'POST':
 	# 	pass

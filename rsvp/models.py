@@ -24,7 +24,7 @@ class Guest(models.Model):		# we create a model for a single guest
 
 class Abstract(models.Model):
 	name = models.CharField(max_length=255)
-	guests = models.ManyToManyField(Guest, null=True)
+	guests = models.ManyToManyField(Guest, null=True, blank=True)
 
 	class Meta:
 		abstract = True
@@ -34,7 +34,7 @@ class Abstract(models.Model):
 
 class Location(models.Model):
 	name = models.CharField(max_length=255)
-	distance = models.IntegerField()
+	distance = models.DecimalField(decimal_places=2, max_digits=3)
 
 	def __unicode__(self):
 		return u'%s' % self.name
@@ -46,9 +46,11 @@ class Event(Abstract):
 	location = models.ForeignKey(Location, null=True)
 
 class Hotel(Abstract):
-	pass
+	total_guest_count = models.IntegerField(max_length=2, null=True, blank=True)
+	hotel_url = models.URLField(null=True, blank=True)
 
 class Room(Abstract):
+	room_type = models.CharField(max_length=255)
 	hotel = models.ForeignKey(Hotel)
 	max_occupancy = models.IntegerField()
 
