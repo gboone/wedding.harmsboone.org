@@ -138,11 +138,26 @@ body#rsvp {
 }
 
 header {
+	background-image: url('../img/dock.jpg');
+	background-position: 0, 0;
 	background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #9e2f21;	
 }
 
 h1, h2, h3, h4, h5, h6, p, address {
 	padding: 0 10px;
+}
+
+#banner h2 {
+	margin-top: 40px;
+	color: #29a7df;
+}
+
+a {
+	color: #29a7df;
 }
 
 #content {
@@ -177,10 +192,16 @@ article#body-text, article#party, div#sidebar {
 	background-position: center top, center bottom;
 }
 
+#main-nav {
+	background-color: hsla(308, 0%, 100%, 0.75);
+	margin-left: 0;
+	font-size: 1.3em;
+	padding: 0 5.4em 0;
+}
+
 #main-nav .pull-left a {
-	margin: 1em 0em 0;
-	padding: 1em 5em 0 3em;
-	height: 3em;
+	margin: 0;
+	padding: 1em 2.5em;
 }
 
 #main-nav .pull-left:hover ul {
@@ -199,5 +220,9 @@ article#body-text, article#party, div#sidebar {
 	position: static;
 	top: 20px;
 	left: -20%;
+}
+
+#yepnope {
+	display: 'inline-block';
 }
 

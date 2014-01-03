@@ -7,25 +7,207 @@
 {% block content %}
 <script type="text/javascript">
 </script>
-<section id="content" class="row-fluid wisc">
+<section id="content" class="row-fluid stock">
 		<div class="span1 pull-left hidden-phone">&nbsp;</div>
 		<article class="span7 pull-left" id="body-text">
-			<h3>Welcome, {{ first_name }} {{ last_name }}!</h3>
 			<form action="" method="post">{% csrf_token %}
 				<div id="yepnope">
-					<p>So, are you coming or not?</p>
-					{{ yepnope }}
+					<h3>Welcome, {{ first_name }} {{ last_name }}!</h3>
+					{{ greeting }}
+					{{ yepnope.as_p }}
+					<a href="#guests" class="btn next" >Next</a>
 				</div>
-				<div id="guests">
-					<p>Are these your guests?</p>
+				<div id="guests" class="hidden">
+					<h3>Are these your guests?</h3>
 					{% for form in formset %}
 						{{ form.as_p }}
 					{% endfor %}
+					<a href="#yepnope" class="btn back" >Back</a>
+					<a href="#lodging" class="btn next" >Next</a>
 				</div>
-				<button class="btn" type="submit">Submit</button>
+				<div id="lodging" class="hidden">
+					<h3>Where are you staying?</h3>
+					<div id="chippewa_yepnope">
+						<p>We've reserved all of Chippewa Retreat for our guests. The resort features 2 to 5 bedroom apartments. All are equipped with full kitchens and bathrooms.</p>
+						{{ hotel_yepnope.as_p }}
+					</div>
+					<div id="if_chippewa" class="hidden">
+						<p>We'll be placing people in rooms based on how many guests are in your party and what rooms are available. Let us know if you have any preferences or there is anything we should know about while we do this.</p>
+						{{ chip_data.as_p }}
+					</div>
+					<div id="else_hotel" class="hidden">
+						<p>If you are not planning to stay at Chippewa, where do you plan to stay?</p>
+						{{ hotel_form.as_p }}
+					</div>
+					<a href="#guests" class="btn back" >Back</a>
+					<a href="#events" class="btn next" >Next</a>
+				</div>
+				<div id="events" class="hidden">
+					<h3>Special Events</h3>
+					<p>In addition to the wedding ceremony and reception, we're having a couple other events on Thursday and Friday. See the events page for more details about them.</p>
+					{{ event_form.as_p }}
+					<a href="#lodging" class="btn back" >Back</a>
+					<a href="#summary" class="btn next" >Next</a>
+				</div>
+				<div id="summary" class="hidden">
+					<h3>Let's review</h3>
+					<p>Okay, {{ first_name }}, let's double check your information. We currently have you down for the following:</p>
+					<ul>
+						<li class='attending'>You attending the wedding.</li>
+						<li class='guests'>Your guests are: </li>
+							<ul>
+							</ul>
+						<li class='hotel'>You are staying at <span class='name'></span><span class='nights'> for </span>.</li>
+						<li class='other'>And you will attend the <span class='events'> and the</span> Wedding Ceremony and Reception on Saturday.</li>  
+					</ul>
+					<p>If that's all correct, click the submit button below. If you need to change something, click the back button below (not your browser's back button).</p>
+					<a href="#events" class="btn back" >Back</a>
+					<button class="btn next" type="submit">Submit</button>
+				</div>
+				<div id="sorry" class="hidden">
+					<p>Sorry to hear you can't make it! Feel free to hang out here on the website for a while. You can read <a href="the_cast" >about the bride and the groom</a>, <a href="crew">the wedding party</a>, or go <a href="wedding.harmsboone.org">back to the home page</a>. Did you do this accidentally? Click here to <a href="/rsvp">RSVP again</a>.</p>
+				</div>
 
 			</form>
 		</article>
+		<script type="text/javascript">
+		window.onload = function hide_forms() {
+			$("#summary li.other > span.events").hide();
 
+			$("#id_attending").click(function() {
+				$(this).toggleClass('checked');
+			});
+
+			$( "a.btn").click(function(){
+				var clicked = $(this);
+				var attending = $("#id_attending")
+				if ( attending.hasClass('checked') ) {
+					var item = clicked.attr("href");
+				} else {
+					var item = $("#sorry");
+				}
+
+				var current = $(this).parent();
+				div_toggle(current);
+				div_toggle(item);
+			});
+		}
+
+		$("#guests a.next").click( function() {
+			$("<ul></ul>").appendTo($("#summary > ul > li.guests"));
+			var guests = $("#guests > p > input[type='text']");
+			jQuery.each(guests, function( i, val ) {
+				if ( $(val).attr("id").indexOf('first_name') > 0){ 
+					var element = $("#summary > ul > li.guests > ul");
+					if ($(val).val().length > 0) {
+						text = $(val).val();
+						$("<li>" + text + "</li>").appendTo( element );
+					}
+				}
+			});
+			console.log($("summary > ul > li.guests > ul"));
+			console.log("Guests added to summary. Starting to add hotel information.");
+		});
+		
+		$("#id_stay_here_0").change( function() {
+				var item = $("#else_hotel");
+				if ( item.hasClass('hidden') == true ) {	
+					div_toggle($(item) );
+				}
+				if ( $("#if_chippewa").hasClass('hidden') == false ) {
+					div_toggle($("#if_chippewa"));
+				}
+			});
+
+		$("#id_stay_here_1").change( function() {
+			var item = $("#if_chippewa");
+			if ( item.hasClass('hidden') == true ) {
+				div_toggle($(item) );
+				$("select#id_hotel > option:eq(1)").attr('selected', true);
+				add_hotel();
+			}
+			if ( $("#else_hotel").hasClass('hidden') == false ) {
+				div_toggle($("#else_hotel"));
+			}
+		});
+		
+		$("#lodging > .next").click( function() {
+			var arr = $("#id_arriving").val();
+			var dep = $("#id_departing").val();
+			var diff = calc_date_between(arr, dep);
+			var target = $("#summary > ul > li.hotel > span.nights");
+			add_date_diff(diff, target);
+		});
+
+		$("#lodging > .back").click( function() {
+			$("#summary > ul > li.guests > ul").remove();
+			console.log('guests > ul emptied');
+			console.log($("summary > ul > li.guests"));
+		});
+
+		$("#id_hotel").change( function() {
+			add_hotel();
+			$("#summary > ul > li.hotel > span.nights").remove();
+			console.log("Hotel info added, nights removed.");
+		});
+
+		$("#events > .next").click( function() {
+			var checkedEvents = $("#events input");
+			checkedEvents.each(function(i, v) {
+				if ( $(v).is(":checked") ) {
+					var label = $(this).parent();
+					var text = $(label).text();
+					$("#summary li.other > span.events").prepend(text + ", ");
+				}
+			});
+			if ( checkedEvents.length >= 1 ) {
+				$("#summary li.other > span.events").show();
+				console.log("events should be showing.");
+			}
+		});
+
+		$("#events > .back").click( function() {
+			$("#summary li.hotel > span.nights").empty();
+			$("#summary li.hotel > span.name").empty();
+		});
+
+		$("#summary > .back").click( function() {
+			$("#summary > ul > li.other > span.events").empty();
+		})
+
+		function add_events(checked) {
+			var value = checked.html;
+			value.appendTo($("li.other"))
+			console.log(value);
+		}
+
+		function div_toggle(item) {
+			$(item).toggleClass("hidden");
+		}
+
+		function ins_html_li_vals(object, element) {
+			$("<li>" + object.val() + "</li>").appendTo( element );
+			console.log("object: " + object.html());
+			console.log("element: " + element.html());
+		}
+		
+		function add_hotel() {
+			var hotel_span = $("#summary > ul > li.hotel span.name");
+			selected = $("#id_hotel option:selected").text();
+			hotel_span.text(selected);
+			console.log('Guest is staying at ' + selected + ".");
+		}
+
+		function calc_date_between(arr, dep) {
+			var diff = (Date.parse(dep)-Date.parse(arr));
+			var diff = diff/(1000*60*60*24);
+			console.log("Diff is " + diff);
+			return diff;
+		}
+
+		function add_date_diff(diff, target) {
+			$(target).append(diff + " nights");
+		}
+		</script>
 {% endblock %}
 

@@ -6,10 +6,11 @@ from django.conf import settings
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory, BaseModelFormSet
 from django.contrib.formtools.wizard.views import CookieWizardView
+import datetime
 
 from rsvp.models import Guest, Hotel, Event, Room
-from rsvp.forms import ContactForm, SongRequest, GuestAuth, GuestVerify, GuestAttending, GuestNamesVerify, HotelChooser, RoomChooser, EventChooser
-
+from rsvp.forms import ContactForm, SongRequest, GuestAuth, GuestVerify, GuestAttending, GuestNamesVerify, HotelChooser
+from rsvp.forms import RoomChooser, EventChooser, ChippewaYepnope, ChippewaData
 def ContactView(request):
 	if request.method == 'POST':
 		form = ContactForm(request.POST)
@@ -56,17 +57,18 @@ def GuestAuthView(request):
 			first = form.cleaned_data['first_name']
 			last = form.cleaned_data['last_name']
 			zip_code = form.cleaned_data['zip_code']
-			key = first + last + str(zip_code)
-			c = Guest.objects.get(first_name=first, last_name=last, zip_code=zip_code) 
+			primary = form.cleaned_data['key_value']
+			key = first + last + str(zip_code) + str(primary)
+			c = Guest.objects.get(pk=primary) 
 			c_first = c.first_name
 			c_last = c.last_name
 			c_zip = str(c.zip_code)
-			check = c_first + c_last + c_zip
+			check = c_first + c_last + c_zip + str(c.pk)
 			import hashlib
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
 			if key == check:
-				return HttpResponseRedirect('yes/?first_name=%s&last_name=%s&zip_code=%s' % ( first, last, zip_code, ))
+				return HttpResponseRedirect('yes/?first_name=%s&last_name=%s&zip_code=%s&pk=%s' % ( first, last, zip_code, primary ))
 	else:
 		form = GuestAuth()
 
@@ -75,14 +77,16 @@ def GuestAuthView(request):
 	})
 
 def GuestVerifyView(request):
-	if request.method == 'GET':
+	if not request.GET['pk']:
+		HttpResponseForbidden
+	elif request.method == 'GET':
 		get_vals = request.GET
-		first = get_vals['first_name']
-		last = get_vals['last_name']
-		zcode = get_vals['zip_code']
-		guest = Guest.objects.get(first_name=first, last_name=last, zip_code=zcode)
+		pk = get_vals['pk']
+		guest = Guest.objects.get(pk=pk)
+		first = guest.first_name
+		last = guest.last_name
 		yepnope = [guest]
-		GuestNameFormset = modelformset_factory(Guest, fields=['first_name', 'last_name'], extra=0, max_num=guest.max_guests)
+		GuestNameFormset = modelformset_factory(Guest, fields=['first_name', 'last_name'], extra=1, max_num=guest.max_guests)
 		EventFormset = modelformset_factory(Event, fields=['name'])
 		hotels = Hotel.objects
 		if guest.attending == True:
@@ -100,6 +104,8 @@ def GuestVerifyView(request):
 				query = Guest.objects.filter(relation=relative)
 				max_guests = relative.max_guests
 				formset = GuestNameFormset(queryset=query)
+			hotel_yepnope = ChippewaYepnope()
+			chip_data = ChippewaData()
 			hotel_form = HotelChooser()
 			room_form = RoomChooser()
 			eventform = EventChooser()
@@ -124,6 +130,8 @@ def GuestVerifyView(request):
 		'yepnope' : yepnope,
 		'first_name' : first,
 		'last_name' : last,
+		'hotel_yepnope' : hotel_yepnope,
+		'chip_data' : chip_data,
 		'hotel_form' : hotel_form,
 		'room_form' : room_form,
 		'event_form' : eventform,

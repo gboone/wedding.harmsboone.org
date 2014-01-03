@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+import datetime
 
 class Guest(models.Model):		# we create a model for a single guest
 	first_name = models.CharField(max_length=45)
@@ -15,6 +16,10 @@ class Guest(models.Model):		# we create a model for a single guest
 	zip_code = models.IntegerField(max_length=5)
 	primary = models.BooleanField()
 	relation = models.ForeignKey('self', null=True, blank=True)
+	arriving = models.DateField(default=datetime.date(2014, 8, 14).strftime("%Y-%m-%d"))
+	departing = models.DateField(default=datetime.date(2014, 8, 17).strftime("%Y-%m-%d"))
+	nights = models.IntegerField(max_length=1)
+	notes = models.TextField(default="None", max_length=2048, null=True, blank=True)
 
 	class Meta:
 		ordering = ['-last_name', '-first_name']
@@ -48,10 +53,15 @@ class Event(Abstract):
 class Hotel(Abstract):
 	total_guest_count = models.IntegerField(max_length=2, null=True, blank=True)
 	hotel_url = models.URLField(null=True, blank=True)
+	notes = models.TextField()
+
+class Roomtype(models.Model):
+	name = models.CharField(max_length=255)
+
+	def __unicode__(self):
+		return u'%s' % self.name
 
 class Room(Abstract):
-	room_type = models.CharField(max_length=255)
 	hotel = models.ForeignKey(Hotel)
 	max_occupancy = models.IntegerField()
-
-
+	room_type = models.ForeignKey(Roomtype, null=True, blank=True)
