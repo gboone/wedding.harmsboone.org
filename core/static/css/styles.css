@@ -28,6 +28,14 @@
 	#content.hung {
 		background-image: url("../img/kapos.jpg");
 	}
+
+	#content.dlh {
+		background-image: url("../img/dlh.jpg");
+	}
+
+	#content.goose {
+		background-image: url("../img/gooseberry.jpg");
+	}
 	
 }
  
@@ -53,10 +61,18 @@
 	}
 	
 	#content.dist {
-		background-image: url("../img/district.d.jpg")
+		background-image: url("../img/district.d.jpg");
+		background-repeat: repeat-y;
 	}
 	#content.hung {
 		background-image: url("../img/kapos.d.jpg");
+	}
+
+	#content.dlh {
+		background-image: url("../img/dlh.d.jpg")
+	}
+	#content.goose {
+		background-image: url("../img/gooseberry.d.jpg");
 	}
 
 }
@@ -83,18 +99,19 @@
 	}
 	
 	#content.dist {
-		background-image: url("../img/district.t.jpg")
+		background-image: url("../img/district.t.jpg");
+		background-repeat: repeat-y;
 	}
 	#content.hung {
 		background-image: url("../img/kapos.t.jpg");
 	}
-	
-	#matt-nancy {
-		background-image: url("../img/Swisc.jpg");
+
+	#content.dlh {
+		background-image: url("../img/dlh.t.jpg");
 	}
-	
-	#joan-john {
-		background-image: url("../img/Sminn.jpg");
+
+	#content.goose {
+		background-image: url("../img/gooseberry.t.jpg")
 	}
 }
  
@@ -119,10 +136,19 @@
 	}
 	
 	#content.dist {
-		background-image: url("../img/district.p.jpg")
+		background-image: url("../img/dlh.p.jpg");
+		background-repeat: repeat-y;
 	}
 	#content.hung {
 		background-image: url("../img/kapos.p.jpg");
+	}
+
+	#content.dlh {
+		background-image: url("../img/dlh.p.jpg");
+	}
+
+	#content.goose {
+		background-image: url("../img/gooseberry.p.jpg");
 	}
 	
 }
@@ -226,3 +252,20 @@ article#body-text, article#party, div#sidebar {
 	display: 'inline-block';
 }
 
+.party-box {
+	display: inline-block;
+	width: 100%;
+	padding: 1.25em 0;
+}
+
+.party-box > span {
+	margin-left: 1em;
+	display: block;
+}
+
+.party-box > img {
+	width: 300px;
+	height: auto;
+	display: inline-block;
+	margin-right: 1.25em;
+}
