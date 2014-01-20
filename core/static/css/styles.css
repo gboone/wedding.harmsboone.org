@@ -34,7 +34,7 @@
 	}
 
 	#content.goose {
-		background-image: url("../img/harbors.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/harbors.jpg");
 	}
 	
 }
@@ -72,7 +72,7 @@
 		background-image: url("../img/dlh.d.jpg")
 	}
 	#content.goose {
-		background-image: url("../img/gooseberry.d.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/harbors.d.jpg");
 	}
 
 }
