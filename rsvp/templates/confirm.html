@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+</script>
+<section id="content" class="row-fluid dlh">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<article class="span7 pull-left" id="body-text">
+
+			<h3>See you in August, {{ guest.first_name }}</h3>
+			<p>Let's take a minute and verify everything is correct. Check the details below and <a href="/rsvp/attending?pk={{ guest.pk }}">click here if you need to start over</a>.</p>
+				<ul id="init">
+					{% if guest.attending == False %}
+						<li>Your party will not be attending the wedding.</li>
+					{% else %}
+						<li>Your party will be attending the wedding.</li>
+					{% endif %}
+					<li>Your party contains these guests:</li>
+					<ul>
+						{% for member in members %}
+						<li>{{ member }}</li>
+						{% endfor %}
+					</ul>
+					<li>We have you down for the following events:</li>
+					<ul>
+						{% for event in events %}
+						<li>{{ event }}</li>
+					</ul>
+						{% endfor %}
+					<p>Need to make a change? Select the events you want to attend below.</p>
+					<p>Finally, we have you staying at {{ guest.hotel }}</p>
+				</ul>
+				<a href="/thanks/" class="btn btn-block">All Correct? Click here!</a>
+
+			</form>
+		</article>
+
+{% endblock %}
+

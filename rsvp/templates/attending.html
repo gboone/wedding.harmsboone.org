@@ -11,14 +11,11 @@
 		<div class="span1 pull-left hidden-phone">&nbsp;</div>
 		<article class="span7 pull-left" id="body-text">
 
-			<h3>Welcome, {{ first_name }} {{ last_name }}!</h3>
+			<h3>Welcome, {{ guest }}!</h3>
 			<form action="" method="post">{% csrf_token %}
-			<p>So, are you coming or not?</p>
+			<p>We're pretty sure these are the people who are in your party. Feel free to change these or add anyone we missed. Also, make sure to check the "attending" box for each guest.</p>
 				<div id="init">
-					{{ yepnope.as_p }}
-				</div>
-				<div id="part_{{ form.instance.pk }}">
-					{{ form.as_p }}
+					{{ partyForm }}
 				</div>
 				<button class="btn" type="submit">Submit</button>
 

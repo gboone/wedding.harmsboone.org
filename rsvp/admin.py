@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rsvp.models import Guest, Location, Table, Event, Hotel, Room
+from rsvp.models import Guest, Location, Table, Event, Hotel, Room, Party
 
 class AdminModel(admin.ModelAdmin):
 	list_display = ['name']
@@ -17,13 +17,16 @@ class TableAdmin(AdminModel):
 	pass
 
 class EventAdmin(AdminModel):
-	filter_horizontal = ['guests']
+	pass
 
 class HotelAdmin(AdminModel):
 	pass
 
 class RoomAdmin(admin.ModelAdmin):
 	list_display = ['name', 'hotel']
+
+class PartyAdmin(admin.ModelAdmin):
+	pass
 
 
 admin.site.register(Guest, GuestAdmin)
@@ -32,3 +35,4 @@ admin.site.register(Table, TableAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Room, RoomAdmin)
+admin.site.register(Party, PartyAdmin)

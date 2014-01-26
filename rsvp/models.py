@@ -3,33 +3,26 @@ from django.forms import ModelForm
 import datetime
 
 class Guest(models.Model):		# we create a model for a single guest
-	first_name = models.CharField(max_length=45)
-	last_name = models.CharField(max_length=45)
-	display_as = models.CharField(max_length= 91, null=True)
-	prefix = models.CharField(max_length=4, null=True, blank=True)
-	max_guests = models.IntegerField(default=0, null=True, blank=True)
-	attending = models.BooleanField()
-	primary_email = models.EmailField(max_length=254)
-	street_addr = models.CharField(max_length=255)
-	city = models.CharField(max_length=255)
-	state = models.CharField(max_length=2)
-	zip_code = models.IntegerField(max_length=5)
-	primary = models.BooleanField()
-	relation = models.ForeignKey('self', null=True, blank=True)
-	arriving = models.DateField(default=datetime.date(2014, 8, 14).strftime("%Y-%m-%d"))
-	departing = models.DateField(default=datetime.date(2014, 8, 17).strftime("%Y-%m-%d"))
-	nights = models.IntegerField(max_length=1)
-	notes = models.TextField(default="None", max_length=2048, null=True, blank=True)
+	first_name = models.CharField(max_length=45, null=True, blank=True)
+	last_name = models.CharField(max_length=45, null=True, blank=True)
+	attending = models.NullBooleanField(blank=True)
+	primary_email = models.EmailField(max_length=254, null=True, blank=True)
+	street_addr = models.CharField(max_length=255, null=True, blank=True)
+	city = models.CharField(max_length=255, null=True, blank=True)
+	state = models.CharField(max_length=2, null=True, blank=True)
+	zip_code = models.IntegerField(max_length=5, null=True, blank=True)
+	primary = models.NullBooleanField(null=True, blank=True)
+	events = models.ManyToManyField('Event', null=True, blank=True)
+	hotel = models.ForeignKey('Hotel', null=True, blank=True)
 
 	class Meta:
 		ordering = ['-last_name', '-first_name']
 
 	def __unicode__(self):
-		return u'%s, %s' % (self.last_name, self.first_name)
+		return u'%s %s' % (self.first_name, self.last_name)
 
 class Abstract(models.Model):
 	name = models.CharField(max_length=255)
-	guests = models.ManyToManyField(Guest, null=True, blank=True)
 
 	class Meta:
 		abstract = True
@@ -39,7 +32,7 @@ class Abstract(models.Model):
 
 class Location(models.Model):
 	name = models.CharField(max_length=255)
-	distance = models.DecimalField(decimal_places=2, max_digits=3)
+	distance = models.DecimalField(decimal_places=1, max_digits=3)
 
 	def __unicode__(self):
 		return u'%s' % self.name
@@ -65,3 +58,11 @@ class Room(Abstract):
 	hotel = models.ForeignKey(Hotel)
 	max_occupancy = models.IntegerField()
 	room_type = models.ForeignKey(Roomtype, null=True, blank=True)
+
+class Party(models.Model):
+	name = models.TextField(null=True, blank=True)
+	guests = models.ManyToManyField(Guest)
+	max_size = models.IntegerField(default=1)
+
+	def __unicode__(self):
+		return u'%s' % self.name
