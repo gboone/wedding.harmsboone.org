@@ -214,6 +214,17 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'cache',
+        'TIMEOUT' : 60,
+        'OPTIONS' : {
+            'MAX_ENTRIES' : 101,
+        }
+    }
+}
+
 # # # Static asset configuration
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = 'staticfiles'

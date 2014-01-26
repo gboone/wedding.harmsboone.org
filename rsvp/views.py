@@ -9,6 +9,7 @@ from django.contrib.formtools.wizard.views import CookieWizardView
 import datetime
 from rsvp.models import Guest, Hotel, Event, Room, Party
 from rsvp.forms import SongRequest, GuestAuth, GuestForm, GuestAttending, GuestHotelForm
+from django.views.decorators.cache import cache_page
 
 def RequestView(request):
 	RequestFormSet = formset_factory(SongRequest, max_num=5)
@@ -20,6 +21,7 @@ def RequestView(request):
 		formset = RequestFormSet()
 	return render(request, 'request.html', { 'formset' : formset })
 
+@cache_page(60 * 5, cache='default', key_prefix='rsvp')
 def GuestAuthView(request):
 	if request.method == 'POST':
 		form = GuestAuth(request.POST)
@@ -38,7 +40,8 @@ def GuestAuthView(request):
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
 			if key == check:
-				return HttpResponseRedirect('attending/?first_name=%s&last_name=%s&zip_code=%s&pk=%s' % ( first, last, zip_code, primary ))
+				request.session['pk'] = primary
+				return HttpResponseRedirect('attending/')
 	else:
 		form = GuestAuth()
 
@@ -46,9 +49,11 @@ def GuestAuthView(request):
 		'form' : form,
 	})
 
+@cache_page(60 * 5, cache='default', key_prefix='rsvp')
 def GuestAttendanceView(request):
-	get_vals = request.GET
-	pk = get_vals['pk']
+	# get_vals = request.GET
+	pk = request.session.get('pk')
+	# pk = get_vals['pk']
 	guest = Guest.objects.get(pk=pk)
 	party = guest.party_set.all()[0]
 	size = party.max_size
@@ -57,7 +62,7 @@ def GuestAttendanceView(request):
 		partyForm = partyFormset(request.POST)
 		if partyForm.is_valid():
 			partyForm = partyForm.save()
-			return HttpResponseRedirect('yes/?pk=%s' % (pk))
+			return HttpResponseRedirect('yes/')
 
 	elif request.method == 'GET':
 		partyForm = partyFormset(queryset=party.guests.all())
@@ -67,8 +72,9 @@ def GuestAttendanceView(request):
 		'guest' : guest
 	})
 
+@cache_page(60 * 5, cache='default', key_prefix='rsvp')
 def GuestVerifyView(request):
-	pk = request.GET['pk']
+	pk = request.session.get('pk')
 	guest = Guest.objects.get(pk=pk)
 	party = guest.party_set.all()[0]
 
@@ -89,10 +95,9 @@ def GuestVerifyView(request):
 		'party' : party,
 	})
 
+@cache_page(60 * 5, cache='default', key_prefix='rsvp')
 def GuestConfirmView(request):
-	referrer = request.META['HTTP_REFERER']
-	index = referrer.index('=')
-	pk = referrer[index + 1:]
+	pk = request.session.get('pk')
 	guest = Guest.objects.get(pk=pk)
 	events = guest.events.all()
 	party = guest.party_set.all()[0]
