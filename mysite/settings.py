@@ -4,7 +4,7 @@ import os
 SERVER = os.environ['SERVER_CONFIG']
 if SERVER == 'production':
     prod = True
-    DEBUG = False
+    DEBUG = True
 else:
     prod = False
     DEBUG = True
@@ -153,7 +153,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
+    'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
