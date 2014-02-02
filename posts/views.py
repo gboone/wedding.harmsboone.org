@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from posts.models import Post
-from rsvp.models import Guest, Party
+from rsvp.models import Guest, Party, Hotel
 
 def index(request):
 	# get the blog posts that are published
@@ -24,3 +24,14 @@ def thanks(request):
 		party.save()
 	request.session.flush()
 	return render(request, 'post.html', {'post' : post})
+
+def lodging(request):
+	main = Hotel.objects.get(name='Grand Superior Lodge')
+	objects = Hotel.objects.all().exclude(pk=main.pk)
+	return render(request, 'from-objects.html', {
+		'main' : main,
+		'objects' : objects,
+		'class' : 'stock',
+		'heading' : 'Where to Stay',
+		'subheading' : 'Other options',
+	})

@@ -45,7 +45,7 @@ class Event(Abstract):
 
 class Hotel(Abstract):
 	total_guest_count = models.IntegerField(max_length=2, null=True, blank=True)
-	hotel_url = models.URLField(null=True, blank=True)
+	url = models.URLField(null=True, blank=True)
 	notes = models.TextField()
 
 class Roomtype(models.Model):

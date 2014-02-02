@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{heading}} | Danielle Harms — Greg Boone | A North Shore Wedding {% endblock %}
+{% block content %}
+		<section id="content" class="row-fluid {{ class }}">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<article class="span7 pull-left" id="body-text">
+			<h3>{{heading}}</h3>
+			<h4><a href="{{main.url}}">{{main.name}}</a></h4>
+			<p>{{main.notes|safe}}</p>
+			<h4>{{subheading}}</h4>
+			{% for object in objects %}
+				<h5><a href="{{object.url}}">{{object.name}}</a></h5>
+				<p>{{object.notes|safe}}</p>
+			{% endfor %}
+		</article>
+{% endblock %}
