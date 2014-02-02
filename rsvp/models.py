@@ -14,6 +14,8 @@ class Guest(models.Model):		# we create a model for a single guest
 	primary = models.NullBooleanField(null=True, blank=True)
 	events = models.ManyToManyField('Event', null=True, blank=True)
 	hotel = models.ForeignKey('Hotel', null=True, blank=True)
+	bride = models.BooleanField(default=False)
+	groom = models.BooleanField(default=False)
 
 	class Meta:
 		ordering = ['-last_name', '-first_name']

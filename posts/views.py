@@ -39,7 +39,7 @@ def lodging(request):
 def events(request):
 	main = Events.objects.get(pk=1)
 	objects = Events.objects.all().exclude(pk=main.pk)
-	return render(request, 'from-objects.html', {
+	return render(request, 'date-objects.html', {
 		'main' : main,
 		'objects' : objects,
 		'class' : 'goose',
