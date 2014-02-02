@@ -63,6 +63,7 @@ class Party(models.Model):
 	name = models.TextField(null=True, blank=True)
 	guests = models.ManyToManyField(Guest)
 	max_size = models.IntegerField(default=1)
+	responded = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return u'%s' % self.name

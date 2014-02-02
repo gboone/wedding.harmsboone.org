@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from posts.models import Post
+from rsvp.models import Guest, Party
 
 def index(request):
 	# get the blog posts that are published
@@ -11,4 +12,15 @@ def page(request, string):
 	#get the Post
 	post = Post.objects.get(slug=string)
 	#return the rendered template
+	return render(request, 'post.html', {'post' : post})
+
+def thanks(request):
+	post = Post.objects.get(slug='thanks')
+	pk = request.session.get('pk')
+	guest = Guest.objects.get(pk=pk)
+	party = guest.party_set.all()[0]
+	if (party.pk is not None):
+		party.responded = True
+		party.save()
+	request.session.flush()
 	return render(request, 'post.html', {'post' : post})

@@ -8,5 +8,6 @@ urlpatterns = patterns('posts.views',
 
     # Uncomment the next line to enable the admin:
 	url(r'^$', 'index', name='home'),
+	url(r'thanks/', 'thanks', name='thanks'),
     url(r'^(?P<string>\w+)/$', 'page', name='page'),
 )

@@ -8,7 +8,7 @@ from django.forms.models import modelformset_factory, BaseModelFormSet
 from django.contrib.formtools.wizard.views import CookieWizardView
 import datetime
 from rsvp.models import Guest, Hotel, Event, Room, Party
-from rsvp.forms import SongRequest, GuestAuth, GuestForm, GuestAttending, GuestHotelForm
+from rsvp.forms import SongRequest, GuestAuth, GuestForm, GuestAttending, GuestHotelForm, GuestChoice, PartyChoice
 from django.views.decorators.cache import cache_page
 
 def RequestView(request):
@@ -21,8 +21,10 @@ def RequestView(request):
 		formset = RequestFormSet()
 	return render(request, 'request.html', { 'formset' : formset })
 
-@cache_page(60 * 5, cache='default', key_prefix='rsvp')
+@cache_page(60, cache='default', key_prefix='rsvp')
 def GuestAuthView(request):
+	if request.session.get('pk') is not None:
+		return HttpResponseRedirect('attending/')
 	if request.method == 'POST':
 		form = GuestAuth(request.POST)
 		if form.is_valid():
@@ -49,11 +51,9 @@ def GuestAuthView(request):
 		'form' : form,
 	})
 
-@cache_page(60 * 5, cache='default', key_prefix='rsvp')
+@cache_page(60, cache='default', key_prefix='rsvp')
 def GuestAttendanceView(request):
-	# get_vals = request.GET
 	pk = request.session.get('pk')
-	# pk = get_vals['pk']
 	guest = Guest.objects.get(pk=pk)
 	party = guest.party_set.all()[0]
 	size = party.max_size
@@ -72,16 +72,26 @@ def GuestAttendanceView(request):
 		'guest' : guest
 	})
 
-@cache_page(60 * 5, cache='default', key_prefix='rsvp')
+@cache_page(60, cache='default', key_prefix='rsvp')
 def GuestVerifyView(request):
 	pk = request.session.get('pk')
 	guest = Guest.objects.get(pk=pk)
 	party = guest.party_set.all()[0]
-
+	others = Guest.objects.filter(party=party.pk)
 	if request.method == 'POST':
 		guestform = GuestHotelForm(request.POST, instance=guest)
 		if guestform.is_valid():
 			guestform = guestform.save()
+			events = guest.events.all()
+			for other in others:
+				other.hotel = guest.hotel
+				other.street_addr = guest.street_addr
+				other.city = guest.city
+				other.state = guest.state
+				other.zip_code = guest.zip_code
+				for event in events:
+					other.events.add(event.pk)
+				other.save()
 			return HttpResponseRedirect('confirm/')
 
 	elif request.method == 'GET':
@@ -95,17 +105,24 @@ def GuestVerifyView(request):
 		'party' : party,
 	})
 
-@cache_page(60 * 5, cache='default', key_prefix='rsvp')
+@cache_page(60, cache='default', key_prefix='rsvp')
 def GuestConfirmView(request):
 	pk = request.session.get('pk')
 	guest = Guest.objects.get(pk=pk)
 	events = guest.events.all()
 	party = guest.party_set.all()[0]
 	members = party.guests.all()
-
 	return render(request, 'confirm.html', {
 		'guest' : guest,
 		'events' : events,
 		'party' : party,
 		'members' : members
 		} )
+
+def ReportView(request):
+	guests = GuestChoice()
+	parties = PartyChoice()
+	return render(request, 'report-landing.html', {
+		'guests' : guests,
+		'parties' : parties,
+		})

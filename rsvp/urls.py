@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from rsvp.forms import GuestAuth, GuestForm, GuestAttending
+from rsvp.forms import GuestAuth, GuestForm, GuestAttending, GuestChoice, PartyChoice
 from posts.models import Post
 # Uncomment the next two lines to enable the admin:
 urlpatterns = patterns('rsvp.views',
@@ -13,6 +13,7 @@ urlpatterns = patterns('rsvp.views',
 	url(r'yes/$', 'GuestVerifyView', name='GuestVerify'),
 	url(r'request/$', 'RequestView', name='RequestView'),
 	url(r'confirm/$', 'GuestConfirmView', name='Confirm'),
+	url(r'reports/$', 'ReportView', name='ReportView'),
 
     # url(r'^(?P<string>\w+)/$', 'page', name='page'),
 )

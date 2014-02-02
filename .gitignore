@@ -2,3 +2,5 @@ db/
 *.pyc
 .DS_Store
 collected_static/
+rsvp/migrations
+*.sublime*
