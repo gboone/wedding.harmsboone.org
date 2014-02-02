@@ -5,11 +5,19 @@
 		<div class="span1 pull-left hidden-phone">&nbsp;</div>
 		<article class="span7 pull-left" id="body-text">
 			<h3>{{heading}}</h3>
-			<h4><a href="{{main.url}}">{{main.name}}</a></h4>
+			{% if main.url %}
+				<h4><a href="{{main.url}}">{{main.name}}</a></h4>
+			{% else %}
+				<h4>{{ main.name }}</h4>
+			{% endif %}
 			<p>{{main.notes|safe}}</p>
 			<h4>{{subheading}}</h4>
 			{% for object in objects %}
-				<h5><a href="{{object.url}}">{{object.name}}</a></h5>
+				{% if object.url %}
+					<h5><a href="{{object.url}}">{{object.name}}</a></h5>
+				{% else %}
+					<h5>{{object.name}}</h5>
+				{% endif %}
 				<p>{{object.notes|safe}}</p>
 			{% endfor %}
 		</article>
