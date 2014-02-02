@@ -42,6 +42,7 @@ class Table(Abstract):
 
 class Event(Abstract):
 	location = models.ForeignKey(Location, null=True)
+	notes = models.TextField(blank=True, null=True)
 
 class Hotel(Abstract):
 	total_guest_count = models.IntegerField(max_length=2, null=True, blank=True)

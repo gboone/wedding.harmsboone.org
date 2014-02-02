@@ -26,7 +26,7 @@ def thanks(request):
 	return render(request, 'post.html', {'post' : post})
 
 def lodging(request):
-	main = Hotel.objects.get(name='Grand Superior Lodge')
+	main = Hotel.objects.get(pk=1)
 	objects = Hotel.objects.all().exclude(pk=main.pk)
 	return render(request, 'from-objects.html', {
 		'main' : main,
@@ -35,3 +35,14 @@ def lodging(request):
 		'heading' : 'Where to Stay',
 		'subheading' : 'Other options',
 	})
+
+def events(request):
+	main = Events.objects.get(pk=1)
+	objects = Events.objects.all().exclude(pk=main.pk)
+	return render(request, 'from-objects.html', {
+		'main' : main,
+		'objects' : objects,
+		'class' : 'goose',
+		'heading' : 'Weekend Activities',
+		'subheading' : 'Other Activiies',
+		})
