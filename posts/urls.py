@@ -10,5 +10,6 @@ urlpatterns = patterns('posts.views',
 	url(r'^$', 'index', name='home'),
 	url(r'thanks/', 'thanks', name='thanks'),
 	url(r'lodging/', 'lodging', name='lodging'),
+	url(r'activities/', 'activities', name='activities'),
     url(r'^(?P<string>\w+)/$', 'page', name='page'),
 )

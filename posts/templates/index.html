@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
 
-{% block title %} Danielle Harms — Greg Boone | A North Shore Wedding {% endblock %}
+{% block title %} {{ bride }} — {{ groom }} | A North Shore Wedding {% endblock %}
 
 {% block header %}
-	<h1 class="hidden-phone">Danielle Harms | Greg Boone</h1>
-	<h1 class="visible-phone">Danielle & Greg: North Shore Wedding</h1>
+	<h1 class="hidden-phone">{{ bride }} &emdash; {{ groom}} </h1>
+	<h1 class="visible-phone">{{ bride }} & {{ groom }} North Shore Wedding</h1>
 	<h2 class="hidden-phone">A North Shore Wedding.</h2>
 {% endblock %}
 
 {% block content %}
 	{% if posts %}
-		<section id="content" class="row-fluid {{ posts.content_id }}">
-		<div class="span1 pull-left hidden-phone">&nbsp;</div>
-		<article class="span7 pull-left" id="body-text">
+		<section id="content" class="container-fluid {{ posts.content_id }}">
+		<article class="span8 pull-left" id="body-text">
 			<h3>{{posts.title}}</h3>
 			{{posts.content|safe}}
 		</article>

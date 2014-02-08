@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{heading}} | {{ bride }} — {{ groom }} | A North Shore Wedding {% endblock %}
+{% block content %}
+		<section id="content" class="container-fluid {{ class }}">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<header class="row-fluid">
+			<div id="main-event">
+				<h2>{{ main.date|date:'l F j, Y' }}: {{ main.name }}</h3>
+				<p>{{ main.notes|safe }}</p>
+			</div>
+		</header>
+		<article class="span8 pull-left" id="body-text">
+			{% if subheading %}
+			<h3>{{ heading }}</h3>
+			{% endif %}
+			{% for object in objects %}
+				<h4>{{ object.date|date:'l' }}: {{ object.name }}</h4>
+				<p>{{ object.notes|safe }}</p>
+			{% endfor %}
+			{% if page %}
+				<h5>{{ page.title }}</h5>
+				<p>{{ page.content | safe }}</p>
+			{% endif %}
+		</article>
+{% endblock %}

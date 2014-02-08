@@ -1,43 +1,43 @@
 /* Large desktop */
 @media (min-width: 980px) {  
 	#content.waters {
-		background-image: url("../img/waters.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/waters.jpg");
 	}
 	#content.wisc {
-		background-image: url("../img/wiscT.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/wiscT.jpg");
 	/*	background-color: #ccc; */
 	}
 	
 	#content.han {
-		background-image: url("../img/hanguk.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/hanguk.jpg");
 	}
 	
 	#content.stock {
-		background-image: url("../img/stock.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/stock.jpg");
 		background-color: #83ccd8;
 		background-position: center top, center bottom;
 	}
 	
 	#content.dist {
-		background-image: url("../img/district.jpg")
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/district.jpg")
 	}
 	
 	#content.white {
 		background-color: #fafafa;
 	}
 	#content.hung {
-		background-image: url("../img/kapos.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/kapos.jpg");
 	}
 
 	#content.dlh {
-		background-image: url("../img/dlh.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/dlh.jpg");
 	}
 
 	#content.goose {
 		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/harbors.jpg");
 	}
 
-	header {
+	header#front-matter {
 		background-image: url('../img/split_rock.jpg');
 		width: 100%;
 		background-position: 0 -2em;
@@ -54,33 +54,33 @@
 @media (min-width: 768px) and (max-width: 979px) { 
 	
 	#content.waters {
-		background-image: url("../img/waters.d.jpg"); /* width 980px */
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/waters.d.jpg"); /* width 980px */
 	}
 	#content.wisc {
-		background-image: url("../img/wiscT.d.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/wiscT.d.jpg");
 	/*	background-color: #ccc; */
 	}
 	
 	#content.han {
-		background-image: url("../img/hanguk.d.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/hanguk.d.jpg");
 	}
 
 	#content.stock {
-		background-image: url("../img/stock.d.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/stock.d.jpg");
 		background-color: #83ccd8;
 		background-position: center top, center bottom;
 	}
 	
 	#content.dist {
-		background-image: url("../img/district.d.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/district.d.jpg");
 		background-repeat: repeat-y;
 	}
 	#content.hung {
-		background-image: url("../img/kapos.d.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/kapos.d.jpg");
 	}
 
 	#content.dlh {
-		background-image: url("../img/dlh.d.jpg")
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/dlh.d.jpg")
 	}
 	#content.goose {
 		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/harbors.d.jpg");
@@ -104,38 +104,38 @@
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) { 
 	#content.waters {
-	background-image: url("../img/waters.t.jpg"); /* width: 768 */
+	background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/waters.t.jpg"); /* width: 768 */
 	}
 	#content.wisc {
-		background-image: url("../img/wiscT.t.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/wiscT.t.jpg");
 	/*	background-color: #ccc; */
 	}
 	
 	#content.han {
-		background-image: url("../img/hanguk.t.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/hanguk.t.jpg");
 	}
 
 	
 	#content.stock {
-		background-image: url("../img/stock.t.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/stock.t.jpg");
 		background-color: #83ccd8;
 		background-position: center top, center bottom;
 	}
 	
 	#content.dist {
-		background-image: url("../img/district.t.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/district.t.jpg");
 		background-repeat: repeat-y;
 	}
 	#content.hung {
-		background-image: url("../img/kapos.t.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/kapos.t.jpg");
 	}
 
 	#content.dlh {
-		background-image: url("../img/dlh.t.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/dlh.t.jpg");
 	}
 
 	#content.goose {
-		background-image: url("../img/gooseberry.t.jpg")
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/harbors.t.jpg")
 	}
 
 	header {
@@ -157,37 +157,37 @@
 /* Landscape phones and down */
 @media (max-width: 480px) {
 	#content.waters {
-	background-image: url("../img/waters.p.jpg"); /* width: 481px */
+	background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/waters.p.jpg"); /* width: 481px */
 	}
 	#content.wisc {
-		background-image: url("../img/wiscT.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/wiscT.p.jpg");
 	/*	background-color: #ccc; */
 	}
 	
 	#content.han {
-		background-image: url("../img/hanguk.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/hanguk.p.jpg");
 	}
 	
 	#content.stock {
-		background-image: url("../img/stock.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/stock.p.jpg");
 		background-color: #83ccd8;
 		background-position: center top, center bottom;
 	}
 	
 	#content.dist {
-		background-image: url("../img/dlh.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/district.p.jpg");
 		background-repeat: repeat-y;
 	}
 	#content.hung {
-		background-image: url("../img/kapos.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/kapos.p.jpg");
 	}
 
 	#content.dlh {
-		background-image: url("../img/dlh.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/dlh.p.jpg");
 	}
 
 	#content.goose {
-		background-image: url("../img/gooseberry.p.jpg");
+		background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/harbors.p.jpg");
 	}
 
 	header {
@@ -256,12 +256,17 @@ footer , #content > .nav{
 	background-color: rgba(242,242,242,0.75);	
 }
 
-article#body-text, article#party, div#sidebar {
+article#body-text, article#party, div#sidebar, div#main-event {
 	background-color: rgba(242,242,242,0.75);
 }
 
+div#main-event {
+	margin: 3em 10em;
+	padding: 5em 7em;
+}
+
 #directions {
-	background-image: url("../img/wiscT.jpg");
+	background-image: url("https://harmsboonedotorg.s3.amazonaws.com/img/wiscT.jpg");
 	background-color: #686c5e;
 	background-position: center top, center bottom;
 }

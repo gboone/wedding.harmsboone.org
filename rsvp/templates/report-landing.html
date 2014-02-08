@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+		<section id="content" class="row-fluid wisc">
+		<div class="span1 pull-left hidden-phone">&nbsp;</div>
+		<article class="span7 pull-left" id="body-text">
+			<form action="" method="post">{% csrf_token %}
+				{{ guests }}
+				{{ parties }}
+				<button class="btn" type="submit">Submit</button>
+			</form>
+		</article>
+
+{% endblock %}
