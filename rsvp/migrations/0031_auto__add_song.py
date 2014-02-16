@@ -8,15 +8,31 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Guest.groom'
-        db.add_column(u'rsvp_guest', 'groom',
-                      self.gf('django.db.models.fields.BooleanField')(default=False),
-                      keep_default=False)
+        # Adding model 'Song'
+        db.create_table(u'rsvp_song', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.TextField')()),
+            ('artist', self.gf('django.db.models.fields.TextField')()),
+            ('votes', self.gf('django.db.models.fields.IntegerField')()),
+        ))
+        db.send_create_signal(u'rsvp', ['Song'])
+
+        # Adding M2M table for field requested_by on 'Song'
+        m2m_table_name = db.shorten_name(u'rsvp_song_requested_by')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('song', models.ForeignKey(orm[u'rsvp.song'], null=False)),
+            ('guest', models.ForeignKey(orm[u'rsvp.guest'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['song_id', 'guest_id'])
 
 
     def backwards(self, orm):
-        # Deleting field 'Guest.groom'
-        db.delete_column(u'rsvp_guest', 'groom')
+        # Deleting model 'Song'
+        db.delete_table(u'rsvp_song')
+
+        # Removing M2M table for field requested_by on 'Song'
+        db.delete_table(db.shorten_name(u'rsvp_song_requested_by'))
 
 
     models = {
@@ -79,6 +95,14 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Roomtype'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
+        u'rsvp.song': {
+            'Meta': {'object_name': 'Song'},
+            'artist': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'requested_by': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['rsvp.Guest']", 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.TextField', [], {}),
+            'votes': ('django.db.models.fields.IntegerField', [], {})
         },
         u'rsvp.table': {
             'Meta': {'object_name': 'Table'},

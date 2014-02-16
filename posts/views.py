@@ -8,7 +8,11 @@ def index(request):
 	bride = Guest.objects.get(bride=True)
 	groom = Guest.objects.get(groom=True)
 	#now return the rendered template
-	return render(request, 'index.html', {'posts':home, 'bride' : bride, 'groom' : groom})
+	return render(request, 'index.html', {
+		'posts':home,
+		'bride' : bride,
+		'groom' : groom
+	})
 
 def page(request, string):
 	#get the Post
@@ -26,6 +30,8 @@ def thanks(request):
 	post = Post.objects.get(slug='thanks')
 	pk = request.session.get('pk')
 	guest = Guest.objects.get(pk=pk)
+	bride = Guest.objects.get(bride=True)
+	groom = Guest.objects.get(groom=True)
 	party = guest.party_set.all()[0]
 	if (party.pk is not None):
 		party.responded = True

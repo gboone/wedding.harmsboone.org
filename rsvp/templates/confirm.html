@@ -12,7 +12,7 @@
 		<article class="span7 pull-left" id="body-text">
 
 			<h3>See you in August, {{ guest.first_name }}</h3>
-			<p>Let's take a minute and verify everything is correct. Check the details below and <a href="/rsvp/attending?pk={{ guest.pk }}">click here if you need to start over</a>.</p>
+			<p>Let's take a minute and verify everything is correct. Check the details below and <a href="/rsvp/attending">click here if you need to start over</a>.</p>
 				<ul id="init">
 					{% if guest.attending == False %}
 						<li>Your party will not be attending the wedding.</li>

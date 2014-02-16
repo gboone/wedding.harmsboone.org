@@ -71,3 +71,13 @@ class Party(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % self.name
+
+class Song(models.Model):
+	title = models.CharField(max_length=500)
+	artist = models.CharField(max_length=500)
+	comment = models.TextField(blank=True, null=True)
+	requested_by = models.ManyToManyField(Guest, null=True, blank=True)
+	votes = models.IntegerField(default=1)
+
+	def __unicode__(self):
+		return u'%s, %s' % (self.title, self.artist)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rsvp.models import Guest, Location, Table, Event, Hotel, Room, Party
+from rsvp.models import Guest, Location, Table, Event, Hotel, Room, Party, Song
 
 class AdminModel(admin.ModelAdmin):
 	list_display = ['name']
@@ -28,6 +28,9 @@ class RoomAdmin(admin.ModelAdmin):
 class PartyAdmin(admin.ModelAdmin):
 	pass
 
+class SongAdmin(admin.ModelAdmin):
+	list_display = ['title', 'artist', 'votes']
+
 
 admin.site.register(Guest, GuestAdmin)
 admin.site.register(Location, LocationAdmin)
@@ -36,3 +39,4 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Room, RoomAdmin)
 admin.site.register(Party, PartyAdmin)
+admin.site.register(Song, SongAdmin)

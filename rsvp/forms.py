@@ -3,14 +3,14 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory, BaseModelFormSet
 import html5.forms.widgets as html5_widgets
-from rsvp.models import Guest, Hotel, Event, Room, Party
+from rsvp.models import Guest, Hotel, Event, Room, Party, Song
 
 forms.DateInput.input_type="date"
 forms.DateTimeInput.input_type="datetime-local"
 
-class SongRequest(forms.Form):
-	artist = forms.CharField()
-	song = forms.CharField()
+class SongRequest(ModelForm):
+	class Meta:
+		model = Song
 
 class GuestAuth(forms.Form):
 	first_name = forms.CharField(max_length=100)
@@ -32,7 +32,7 @@ class GuestForm(ModelForm):
 class GuestHotelForm(ModelForm):
 	class Meta:
 		model = Guest
-		exclude = ['zip_code', 'first_name', 'last_name', 'attending', 'primary_email', 'street_addr', 'city', 'state', 'primary']
+		exclude = ['zip_code', 'first_name', 'last_name', 'attending', 'primary_email', 'street_addr', 'city', 'state', 'primary', 'bride', 'groom']
 
 class GuestChoice(forms.Form):
 	guests = Guest.objects.all()

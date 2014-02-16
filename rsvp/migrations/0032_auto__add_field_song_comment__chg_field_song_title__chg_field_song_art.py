@@ -8,16 +8,28 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Guest.bride'
-        db.add_column(u'rsvp_guest', 'bride',
-                      self.gf('django.db.models.fields.BooleanField')(default=False),
+        # Adding field 'Song.comment'
+        db.add_column(u'rsvp_song', 'comment',
+                      self.gf('django.db.models.fields.TextField')(null=True, blank=True),
                       keep_default=False)
 
 
-    def backwards(self, orm):
-        # Deleting field 'Guest.bride'
-        db.delete_column(u'rsvp_guest', 'bride')
+        # Changing field 'Song.title'
+        db.alter_column(u'rsvp_song', 'title', self.gf('django.db.models.fields.CharField')(max_length=500))
 
+        # Changing field 'Song.artist'
+        db.alter_column(u'rsvp_song', 'artist', self.gf('django.db.models.fields.CharField')(max_length=500))
+
+    def backwards(self, orm):
+        # Deleting field 'Song.comment'
+        db.delete_column(u'rsvp_song', 'comment')
+
+
+        # Changing field 'Song.title'
+        db.alter_column(u'rsvp_song', 'title', self.gf('django.db.models.fields.TextField')())
+
+        # Changing field 'Song.artist'
+        db.alter_column(u'rsvp_song', 'artist', self.gf('django.db.models.fields.TextField')())
 
     models = {
         u'rsvp.event': {
@@ -79,6 +91,15 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Roomtype'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
+        u'rsvp.song': {
+            'Meta': {'object_name': 'Song'},
+            'artist': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'comment': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'requested_by': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['rsvp.Guest']", 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'votes': ('django.db.models.fields.IntegerField', [], {})
         },
         u'rsvp.table': {
             'Meta': {'object_name': 'Table'},
