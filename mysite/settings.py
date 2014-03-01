@@ -4,7 +4,7 @@ import os
 SERVER = os.environ['SERVER_CONFIG']
 if SERVER == 'production':
     prod = True
-    DEBUG = True
+    DEBUG = False
 else:
     prod = False
     DEBUG = True
