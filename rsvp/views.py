@@ -105,6 +105,9 @@ def GuestVerifyView(request):
 		guestform = GuestHotelForm(instance=guest)
 	else:
 		guestform = GuestHotelForm()
+	block = Hotel.objects.filter(block=True)
+	hotel = block[0]
+	wedding = bride.last_name + groom.last_name
 
 	return render(request, 'logistics.html', {
 		'guestform' : guestform,
@@ -112,6 +115,8 @@ def GuestVerifyView(request):
 		'party' : party,
 		'bride' : bride,
 		'groom' : groom,
+		'hotel' : hotel,
+		'wedding' : wedding,
 	})
 
 @cache_page(60, cache='default', key_prefix='rsvp')
@@ -169,8 +174,6 @@ def GuestConfirmView(request):
 	events = guest.events.all()
 	party = guest.party_set.all()[0]
 	members = party.guests.all()
-	block = Hotel.objects.filter(block=True)
-	block = block[0]
 	return render(request, 'confirm.html', {
 		'guest' : guest,
 		'events' : events,
@@ -179,7 +182,8 @@ def GuestConfirmView(request):
 		'bride' : bride,
 		'bride' : bride,
 		'groom' : groom,
-		'block' : block,
+		'hotel' : hotel,
+		'wedding' : wedding,
 		} )
 
 def ReportView(request):
