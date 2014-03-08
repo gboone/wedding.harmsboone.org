@@ -169,6 +169,8 @@ def GuestConfirmView(request):
 	events = guest.events.all()
 	party = guest.party_set.all()[0]
 	members = party.guests.all()
+	block = Hotel.objects.filter(block=True)
+	block = block[0]
 	return render(request, 'confirm.html', {
 		'guest' : guest,
 		'events' : events,
@@ -177,6 +179,7 @@ def GuestConfirmView(request):
 		'bride' : bride,
 		'bride' : bride,
 		'groom' : groom,
+		'block' : block,
 		} )
 
 def ReportView(request):

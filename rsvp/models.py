@@ -60,6 +60,7 @@ class Hotel(Abstract):
 	total_guest_count = models.IntegerField(max_length=2, null=True, blank=True)
 	url = models.URLField(null=True, blank=True)
 	notes = models.TextField()
+	block = models.BooleanField(default=False, blank=True)
 
 class Roomtype(models.Model):
 	name = models.CharField(max_length=255)
