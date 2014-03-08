@@ -42,10 +42,19 @@ class Location(models.Model):
 class Table(Abstract):
 	pass
 
-class Event(Abstract):
+class Event(models.Model):
+	name = models.CharField(max_length=255)
 	location = models.ForeignKey(Location, null=True)
 	notes = models.TextField(blank=True, null=True)
 	date = models.DateTimeField(default=datetime.datetime(2014, 8, 1, 00))
+
+	class Meta:
+		ordering = ['date']
+
+	def __unicode__(self):
+		date = self.date.strftime("%A")
+		name = self.name
+		return u'%s: %s' % (date, name)
 
 class Hotel(Abstract):
 	total_guest_count = models.IntegerField(max_length=2, null=True, blank=True)

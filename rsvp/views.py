@@ -104,7 +104,7 @@ def GuestVerifyView(request):
 	elif request.method == 'GET':
 		guestform = GuestHotelForm(instance=guest)
 	else:
-		GuestHotelForm()
+		guestform = GuestHotelForm()
 
 	return render(request, 'logistics.html', {
 		'guestform' : guestform,

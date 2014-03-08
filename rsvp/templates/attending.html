@@ -13,7 +13,7 @@
 
 			<h3>Welcome, {{ guest }}!</h3>
 			<form action="" method="post">{% csrf_token %}
-			<p>We're pretty sure these are the people who are in your party. Feel free to change these or add anyone we missed. Also, make sure to check the "attending" box for each guest.</p>
+			<p>We're pretty sure these are the people who are in your party. Feel free to correct us or fill in any missing information. <em>Also, make sure to check the "attending" box for each guest.</em></p>
 				<div id="init">
 					{{ partyForm }}
 				</div>
