@@ -26,18 +26,19 @@ def GuestAuthView(request):
 			first = form.cleaned_data['first_name']
 			last = form.cleaned_data['last_name']
 			zip_code = form.cleaned_data['zip_code']
-			primary = form.cleaned_data['key_value']
-			key = first + last + str(zip_code) + str(primary)
-			c = Guest.objects.get(pk=primary) 
+			party = form.cleaned_data['key_value']
+			key = first + last + str(zip_code) + str(party)
+			c = Guest.objects.get(first_name=first, last_name=last) 
 			c_first = c.first_name
 			c_last = c.last_name
 			c_zip = str(c.zip_code)
-			check = c_first + c_last + c_zip + str(c.pk)
+			c_party = c.party_set.all()
+			check = c_first + c_last + c_zip + str(c_party[0].pk)
 			import hashlib
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
 			if key == check:
-				request.session['pk'] = primary
+				request.session['pk'] = c.pk
 				return HttpResponseRedirect('attending/')
 	else:
 		form = GuestAuth()

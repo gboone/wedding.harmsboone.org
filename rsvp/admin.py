@@ -26,11 +26,10 @@ class RoomAdmin(admin.ModelAdmin):
 	list_display = ['name', 'hotel']
 
 class PartyAdmin(admin.ModelAdmin):
-	pass
+    filter_horizontal = ('guests',)
 
 class SongAdmin(admin.ModelAdmin):
 	list_display = ['title', 'artist', 'votes']
-
 
 admin.site.register(Guest, GuestAdmin)
 admin.site.register(Location, LocationAdmin)
