@@ -29,12 +29,12 @@
 					<ul>
 						{% for event in events %}
 						<li>{{ event }}</li>
-					</ul>
 						{% endfor %}
-					<p>Need to make a change? Select the events you want to attend below.</p>
-					<p>Finally, we have you staying at {{ guest.hotel }}</p>
+					</ul>
 				</ul>
-				<a href="/thanks/" class="btn btn-block">All Correct? Click here!</a>
+				<p>Finally, we have you staying at {{ guest.hotel }}</p>
+				<p>Need to make a change? Use your browser's back button to go back a page.</p>
+				<button href="/thanks/" class="btn btn-block">All Correct? Click here!</button>
 
 			</form>
 		</article>

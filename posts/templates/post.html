@@ -6,7 +6,11 @@
 		<div class="span1 pull-left hidden-phone">&nbsp;</div>
 		<article class="span7 pull-left" id="body-text">
 			<h3>{{post.title}}</h3>
-			{{post.content|safe}}
+			{% if attending != False %}
+				{{post.content|safe}}
+			{% else %}
+				<p>Sorry you can't make it!</p>
+			{% endif %}
 		</article>
 {% endblock %}
 {% endif %}

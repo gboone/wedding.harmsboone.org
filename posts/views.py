@@ -38,6 +38,7 @@ def thanks(request):
 		party.save()
 	request.session.flush()
 	return render(request, 'post.html', {
+		'attending' : guest.attending,
 		'post' : post,
  		'bride' : bride,
 		'groom' : groom,

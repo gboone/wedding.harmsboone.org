@@ -65,7 +65,12 @@ def GuestAttendanceView(request):
 		partyForm = partyFormset(request.POST)
 		if partyForm.is_valid():
 			partyForm = partyForm.save()
-			return HttpResponseRedirect('yes/')
+			import pdb; pdb.set_trace()
+			attending = guest.attending
+			if attending == True:
+				return HttpResponseRedirect('yes/')
+			else:
+				return HttpResponseRedirect('/thanks/')
 
 	elif request.method == 'GET':
 		partyForm = partyFormset(queryset=party.guests.all())
@@ -174,16 +179,18 @@ def GuestConfirmView(request):
 	events = guest.events.all()
 	party = guest.party_set.all()[0]
 	members = party.guests.all()
+	m = members.filter(attending=True)
+	import pdb; pdb.set_trace()
+	hotel = guest.hotel
 	return render(request, 'confirm.html', {
 		'guest' : guest,
 		'events' : events,
 		'party' : party,
-		'members' : members,
+		'members' : m,
 		'bride' : bride,
 		'bride' : bride,
 		'groom' : groom,
 		'hotel' : hotel,
-		'wedding' : wedding,
 		} )
 
 def ReportView(request):
