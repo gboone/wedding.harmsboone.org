@@ -18,6 +18,11 @@ class GuestAuth(forms.Form):
 	zip_code = forms.IntegerField()
 	key_value = forms.IntegerField()
 
+class AttendanceForm(ModelForm):
+	class Meta:
+		model =Guest
+		fields = ('first_name', 'last_name', 'attending')
+
 class GuestAttending(ModelForm):
 	class Meta:
 		model = Guest

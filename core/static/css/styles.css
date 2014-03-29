@@ -299,6 +299,10 @@ div#main-event {
 	display: inline-block;
 
 }
+
+#init>input {
+	display: inline;
+}
 .open .dropdown-menu {
 	position: static;
 	top: 20px;
@@ -325,4 +329,27 @@ div#main-event {
 	height: auto;
 	display: inline-block;
 	margin-right: 1.25em;
+}
+
+div.labels {
+	width: 50%;
+}
+
+div.labels > label {
+	margin-right: 10.6em;
+	display: inline-block;
+}
+
+div.guestform > input {
+	float: left;
+	clear:none;
+}
+
+.attending-form button {
+	float: left;
+	clear: both;
+}
+
+.errorlist * {
+	color: red;
 }

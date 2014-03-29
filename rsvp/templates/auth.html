@@ -8,6 +8,19 @@
 		<section id="content" class="row-fluid wisc">
 		<div class="span1 pull-left hidden-phone">&nbsp;</div>
 		<article class="span7 pull-left" id="body-text">
+			{% if error %}
+				<p class="alert">{{ error }}</p>
+			{% endif %}
+			<h3>RSVP Here!</h3>
+			<div class="step-one">
+				<p>Thanks for RSVPing, this should only take a couple minutes. First, we need to look you up in our system before we continue. Your invitation should have an insert card, go ahead and find that.</p>
+			</div>
+			<div class="step-two">
+				<p>Got it? Good, now you should see an "invitation number" on that card. Enter that number in the "Key value:" field below.</p>
+			</div>
+			<div>
+				<p>For the first and last names, use a name printed on your envelope exactly as it appears. If the envelope says Dan, for example, do not use Daniel. If your name is spelled wrong (sorry!) spell it wrong here. You can correct us on the next screen; and again, sorry.</p>
+			</div>
 			<form action="" method="post">{% csrf_token %}
 				{{ form.as_p }}
 				<button class="btn" type="submit">Submit</button>

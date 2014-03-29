@@ -36,6 +36,7 @@ def thanks(request):
 	if (party.pk is not None):
 		party.responded = True
 		party.save()
+	import pdb; pdb.set_trace()
 	request.session.flush()
 	return render(request, 'post.html', {
 		'attending' : guest.attending,

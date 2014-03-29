@@ -18,6 +18,7 @@ groom = Guest.objects.get(groom=True)
 def GuestAuthView(request):
 	global bride
 	global groom
+	error = None
 	if request.session.get('pk') is not None:
 		return HttpResponseRedirect('attending/')
 	if request.method == 'POST':
@@ -37,9 +38,18 @@ def GuestAuthView(request):
 			import hashlib
 			key = hashlib.sha224(key).hexdigest()
 			check = hashlib.sha224(check).hexdigest()
-			if key == check:
+			if	key == check:
 				request.session['pk'] = c.pk
 				return HttpResponseRedirect('attending/')
+			else:
+				error = 'Something went wrong, double check all your fields are correct and try again.'
+				return render(request,'auth.html', {
+					'form' : form,
+					'bride' : bride,
+					'groom' : groom,
+					'error' : error,
+					})
+
 	else:
 		form = GuestAuth()
 
@@ -73,7 +83,6 @@ def GuestAttendanceView(request):
 
 	elif request.method == 'GET':
 		partyForm = partyFormset(queryset=party.guests.all())
-
 	return render(request, 'attending.html', {
 		'partyForm' : partyForm,
 		'guest' : guest,

@@ -8,19 +8,26 @@
 <script type="text/javascript">
 </script>
 <section id="content" class="row-fluid wisc">
-		<div class="span1 pull-left hidden-phone">&nbsp;</div>
-		<article class="span7 pull-left" id="body-text">
+	<div class="span1 pull-left hidden-phone">&nbsp;</div>
+	<article class="span7 pull-left" id="body-text">
 
-			<h3>Welcome, {{ guest }}!</h3>
-			<form action="" method="post">{% csrf_token %}
-			<p>We're pretty sure these are the people who are in your party. Feel free to correct us or fill in any missing information. <em>Also, make sure to check the "attending" box for each guest.</em></p>
-				<div id="init">
-					{{ partyForm }}
-				</div>
-				<button class="btn" type="submit">Submit</button>
+		<h3>Welcome, {{ guest }}!</h3>
+		<form class="attending-form" action="" method="post">
+			{{ partyForm.management_form }}
+			{% csrf_token %}
+		<p>We're pretty sure these are the people who are in your party. Feel free to correct us or fill in any missing information. <em>Also, make sure to check the "attending" box for each guest.</em></p>
+			<div id="init">
+				{% for p in partyForm %}
+					<div id="guest-{{ forloop.counter }}" class="labels pull-left">
+						<h4>Guest {{ forloop.counter }}</h4>
+						{{ p.as_p }}
+					</div>
+				{% endfor %}
+			</div>
+			<button class="btn pull-left" type="submit">Submit</button>
 
-			</form>
-		</article>
+		</form>
+	</article>
 
 {% endblock %}
 
