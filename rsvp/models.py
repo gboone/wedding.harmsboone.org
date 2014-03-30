@@ -62,17 +62,6 @@ class Hotel(Abstract):
 	notes = models.TextField()
 	block = models.BooleanField(default=False, blank=True)
 
-class Roomtype(models.Model):
-	name = models.CharField(max_length=255)
-
-	def __unicode__(self):
-		return u'%s' % self.name
-
-class Room(Abstract):
-	hotel = models.ForeignKey(Hotel)
-	max_occupancy = models.IntegerField()
-	room_type = models.ForeignKey(Roomtype, null=True, blank=True)
-
 class Party(models.Model):
 	name = models.TextField(null=True, blank=True)
 	guests = models.ManyToManyField(Guest)
