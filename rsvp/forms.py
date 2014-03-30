@@ -16,7 +16,7 @@ class GuestAuth(forms.Form):
 	first_name = forms.CharField(max_length=100)
 	last_name = forms.CharField(max_length=100)
 	zip_code = forms.IntegerField()
-	key_value = forms.IntegerField()
+	invitation_number = forms.IntegerField()
 
 class AttendanceForm(ModelForm):
 	class Meta:

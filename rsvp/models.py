@@ -90,4 +90,4 @@ class Song(models.Model):
 	votes = models.IntegerField(default=1)
 
 	def __unicode__(self):
-		return u'%s, %s' % (self.title, self.artist)
+		return u'%s, %s' % (self.title.capitalize(), self.artist.capitalize())

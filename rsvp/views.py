@@ -27,7 +27,7 @@ def GuestAuthView(request):
 			first = form.cleaned_data['first_name']
 			last = form.cleaned_data['last_name']
 			zip_code = form.cleaned_data['zip_code']
-			party = form.cleaned_data['key_value']
+			party = form.cleaned_data['invitation_number']
 			key = first + last + str(zip_code) + str(party)
 			c = Guest.objects.get(first_name=first, last_name=last) 
 			c_first = c.first_name
@@ -148,6 +148,8 @@ def RequestView(request):
 		if formset.is_valid():
 			objects = formset.save(commit=False)
 			for song in objects:
+				song.title = song.title.lower()
+				song.artist = song.artist.lower()
 				requested = Song.objects.filter(
 					title=song.title,
 					artist=song.artist
