@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory, BaseModelFormSet
 import html5.forms.widgets as html5_widgets
-from rsvp.models import Guest, Hotel, Event, Room, Party, Song
+from rsvp.models import Guest, Hotel, Event, Party, Song
 
 forms.DateInput.input_type="date"
 forms.DateTimeInput.input_type="datetime-local"
