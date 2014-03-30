@@ -75,11 +75,7 @@ def GuestAttendanceView(request):
 		partyForm = partyFormset(request.POST)
 		if partyForm.is_valid():
 			partyForm = partyForm.save()
-			attending = guest.attending
-			if attending == True:
-				return HttpResponseRedirect('yes/')
-			else:
-				return HttpResponseRedirect('/thanks/')
+			return HttpResponseRedirect('yes/')
 
 	elif request.method == 'GET':
 		partyForm = partyFormset(queryset=party.guests.all())
@@ -98,6 +94,8 @@ def GuestVerifyView(request):
 	guest = Guest.objects.get(pk=pk)
 	party = guest.party_set.all()[0]
 	others = Guest.objects.filter(party=party.pk)
+	if guest.attending == False:
+		return HttpResponseRedirect('/thanks/')
 	if request.method == 'POST':
 		guestform = GuestHotelForm(request.POST, instance=guest)
 		if guestform.is_valid():
