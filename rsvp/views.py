@@ -7,7 +7,7 @@ from django.conf import settings
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory, BaseModelFormSet
 from django.contrib.formtools.wizard.views import CookieWizardView
-from rsvp.models import Guest, Hotel, Event, Room, Party, Song
+from rsvp.models import Guest, Hotel, Event, Party, Song
 from rsvp.forms import SongRequest, GuestAuth, GuestForm, GuestAttending
 from rsvp.forms import GuestHotelForm, GuestChoice, PartyChoice
 from django.views.decorators.cache import cache_page
