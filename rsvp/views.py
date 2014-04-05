@@ -14,7 +14,7 @@ from django.views.decorators.cache import cache_page
 bride = Guest.objects.get(bride=True)
 groom = Guest.objects.get(groom=True)
 
-@cache_page(60, cache='default', key_prefix='rsvp')
+# @cache_page(60, cache='default', key_prefix='rsvp')
 def GuestAuthView(request):
 	global bride
 	global groom
@@ -40,7 +40,7 @@ def GuestAuthView(request):
 			check = hashlib.sha224(check).hexdigest()
 			if	key == check:
 				request.session['pk'] = c.pk
-				return HttpResponseRedirect('attending/')
+ 				return HttpResponseRedirect('attending/')
 			else:
 				error = 'Something went wrong, double check all your fields are correct and try again.'
 				return render(request,'auth.html', {
@@ -59,7 +59,7 @@ def GuestAuthView(request):
 		'groom' : groom,
 	})
 
-@cache_page(60, cache='default', key_prefix='rsvp')
+# @cache_page(60, cache='default', key_prefix='rsvp')
 def GuestAttendanceView(request):
 	global bride
 	global groom
@@ -73,10 +73,17 @@ def GuestAttendanceView(request):
 	)
 	if request.method == 'POST':
 		partyForm = partyFormset(request.POST)
+		attendees = 0
+		for p in partyForm:
+			key = '%s-attending' % (p.prefix)
+			if p.data.has_key(key) == False:
+				attendees = attendees + 1
 		if partyForm.is_valid():
 			partyForm = partyForm.save()
-			return HttpResponseRedirect('yes/')
-
+			if attendees == size:
+				return HttpResponseRedirect('/thanks/')
+			else:
+				return HttpResponseRedirect('yes/')
 	elif request.method == 'GET':
 		partyForm = partyFormset(queryset=party.guests.all())
 	return render(request, 'attending.html', {
@@ -86,7 +93,7 @@ def GuestAttendanceView(request):
 		'groom' : groom,
 	})
 
-@cache_page(60, cache='default', key_prefix='rsvp')
+# @cache_page(60, cache='default', key_prefix='rsvp')
 def GuestVerifyView(request):
 	global bride
 	global groom
@@ -94,8 +101,6 @@ def GuestVerifyView(request):
 	guest = Guest.objects.get(pk=pk)
 	party = guest.party_set.all()[0]
 	others = Guest.objects.filter(party=party.pk)
-	if guest.attending == False:
-		return HttpResponseRedirect('/thanks/')
 	if request.method == 'POST':
 		guestform = GuestHotelForm(request.POST, instance=guest)
 		if guestform.is_valid():
@@ -130,7 +135,7 @@ def GuestVerifyView(request):
 		'wedding' : wedding,
 	})
 
-@cache_page(60, cache='default', key_prefix='rsvp')
+# @cache_page(60, cache='default', key_prefix='rsvp')
 def RequestView(request):
 	global bride
 	global groom
@@ -178,7 +183,7 @@ def RequestView(request):
 		'groom' : groom,
 	 })
 
-@cache_page(60, cache='default', key_prefix='rsvp')
+# @cache_page(60, cache='default', key_prefix='rsvp')
 def GuestConfirmView(request):
 	global bride
 	global groom
