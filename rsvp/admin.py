@@ -24,7 +24,7 @@ class HotelAdmin(AdminModel):
 
 class PartyAdmin(admin.ModelAdmin):
     filter_horizontal = ('guests',)
-
+    list_display = ['name', 'responded']
 class SongAdmin(admin.ModelAdmin):
 	list_display = ['title', 'artist', 'votes']
 
