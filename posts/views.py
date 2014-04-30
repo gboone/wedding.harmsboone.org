@@ -46,7 +46,8 @@ def thanks(request):
 
 def lodging(request):
 	main = Hotel.objects.get(pk=1)
-	objects = Hotel.objects.all().exclude(pk=main.pk)
+	other = Hotel.objects.get(name='Other')
+	objects = Hotel.objects.all().exclude(pk=main.pk).exclude(pk=other.pk)
 	bride = Guest.objects.get(bride=True)
 	groom = Guest.objects.get(groom=True)
 	return render(request, 'from-objects.html', {
