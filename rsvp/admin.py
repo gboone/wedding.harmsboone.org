@@ -5,7 +5,7 @@ class AdminModel(admin.ModelAdmin):
 	list_display = ['name']
 
 class GuestAdmin(admin.ModelAdmin):
-	list_display = ['last_name', 'first_name']
+	list_display = ['last_name', 'first_name', 'attending', ]
 	list_filter = ['last_name', 'first_name']
 	search_fields = ['last_name', 'first_name', ]
 	save_on_top = True
