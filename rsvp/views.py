@@ -79,7 +79,10 @@ def GuestAttendanceView(request):
 			if p.data.has_key(key) == False:
 				attendees = attendees + 1
 		if partyForm.is_valid():
-			partyForm = partyForm.save()
+			new_guest = partyForm.save()
+			count = len(new_guest)
+			count = count - 1
+			party.guests.add(new_guest[count])
 			if attendees == size:
 				return HttpResponseRedirect('/thanks/')
 			else:
