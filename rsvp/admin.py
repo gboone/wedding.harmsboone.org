@@ -61,9 +61,21 @@ class HotelAdmin(AdminModel):
 	pass
 
 class PartyAdmin(admin.ModelAdmin):
-    filter_horizontal = ('guests',)
-    list_display = ['name', 'responded']
-    list_display_links = ['name', 'responded']
+	def member_guests(self, request):
+		guests = Party.objects.get(pk=request.pk).guests
+		guests_in_party = ""
+		# import pdb; pdb.set_trace()
+		for g in guests.all():
+			guests_in_party = guests_in_party + "%s %s, " % (g.first_name, g.last_name)
+
+		# import pdb; pdb.set_trace()
+		last_char = len(guests_in_party)-2
+		guests_in_party = guests_in_party[:last_char]
+		return guests_in_party
+
+	filter_horizontal = ('guests',)
+	list_display = ['name', 'responded', 'member_guests']
+	list_display_links = ['name', 'responded']
 
 class SongAdmin(admin.ModelAdmin):
 	list_display = ['title', 'artist', 'votes']
