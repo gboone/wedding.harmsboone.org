@@ -12,7 +12,12 @@ class GuestAdmin(admin.ModelAdmin):
 		response = Party.objects.get(pk=party).responded
 		return response
 
-	list_display = ['last_name', 'first_name', 'attending', 'party_has_responded']
+	def party_name(self, request):
+		party = Guest.objects.get(pk=request.pk).party_set.get().name
+		return party
+
+	list_display = ['last_name', 'first_name', 'attending', 'party_name', 'party_has_responded',]
+	list_display_links = ['party_name']
 	list_filter = ['last_name', 'first_name']
 	search_fields = ['last_name', 'first_name', ]
 	save_on_top = True
