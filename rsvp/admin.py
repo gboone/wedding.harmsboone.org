@@ -1,12 +1,18 @@
 from django.contrib import admin
 from django.utils import html
+import smtplib
 from rsvp.models import Guest, Location, Table, Event, Hotel, Party, Song
 
 class AdminModel(admin.ModelAdmin):
 	list_display = ['name']
 
 class GuestAdmin(admin.ModelAdmin):
-	list_display = ['last_name', 'first_name', 'attending', ]
+	def party_has_responded(self, request):
+		party = Guest.objects.get(pk=request.pk).party_set.get().pk
+		response = Party.objects.get(pk=party).responded
+		return response
+
+	list_display = ['last_name', 'first_name', 'attending', 'party_has_responded']
 	list_filter = ['last_name', 'first_name']
 	search_fields = ['last_name', 'first_name', ]
 	save_on_top = True
@@ -48,7 +54,7 @@ class HotelAdmin(AdminModel):
 class PartyAdmin(admin.ModelAdmin):
     filter_horizontal = ('guests',)
     list_display = ['name', 'responded']
-    list_display_links = ['responded']
+    list_display_links = ['name', 'responded']
 
 class SongAdmin(admin.ModelAdmin):
 	list_display = ['title', 'artist', 'votes']
