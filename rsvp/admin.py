@@ -14,7 +14,10 @@ class GuestAdmin(admin.ModelAdmin):
 		return response
 
 	def party_name(self, request):
-		party = Guest.objects.get(pk=request.pk).party_set.get().name
+		guest = Guest.objects.get(pk=request.pk)
+		party = guest.party_set.get()
+		name = party.name
+		party = html.format_html("<a href='/admin/rsvp/party/%s'>%s</a>" % (party.pk, name))
 		return party
 
 	list_display = ['last_name', 'first_name', 'attending', 'party_name', 'party_has_responded',]
